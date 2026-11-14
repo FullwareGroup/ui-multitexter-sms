@@ -23,8 +23,6 @@
 <script setup lang="ts">
 import { ArrowLeftIcon } from '@lucide/vue'
 
-useAppStore().setPageTitle('SMS Detail')
-
 const id = Number(useRoute().params.id)
 
 definePageMeta({

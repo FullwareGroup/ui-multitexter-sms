@@ -41,8 +41,6 @@
 <script setup lang="ts">
 import { PlusIcon, UploadIcon } from '@lucide/vue'
 
-useAppStore().setPageTitle('Birthdays')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

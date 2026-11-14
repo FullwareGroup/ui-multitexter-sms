@@ -55,8 +55,6 @@ import { InfoIcon } from '@lucide/vue'
 
 const { user } = storeToRefs(useUserStore())
 
-useAppStore().setPageTitle('Bank Deposit')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

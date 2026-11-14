@@ -26,8 +26,6 @@
 </template>
 
 <script setup lang="ts">
-useAppStore().setPageTitle('Profile')
-
 const activeTab = ref('bio')
 const tabs = [
   {

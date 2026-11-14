@@ -30,8 +30,6 @@
 <script setup lang="ts">
 import { ClockIcon, SendIcon } from '@lucide/vue'
 
-useAppStore().setPageTitle('Sent SMS')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

@@ -63,8 +63,6 @@ const { copy, copied } = useClipboard({
   legacy: true,
 })
 
-useAppStore().setPageTitle('Refer a Friend')
-
 const referUrl = computed(
   () => `https://www.multitexter.com/signup?ref=${userDetail.value?.userid}`,
 )

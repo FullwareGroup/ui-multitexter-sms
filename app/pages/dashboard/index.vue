@@ -29,8 +29,6 @@
 <script setup lang="ts">
 import { MessageSquarePlusIcon } from '@lucide/vue'
 
-useAppStore().setPageTitle('Account Overview')
-
 const route = useRoute()
 const { $toast } = useNuxtApp()
 const { user } = storeToRefs(useUserStore())

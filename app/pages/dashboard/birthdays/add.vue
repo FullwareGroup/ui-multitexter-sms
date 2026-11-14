@@ -140,8 +140,6 @@ import type { BirthdayCreateReq } from '@/types/birthday'
 
 type Entry = BirthdayCreateReq & { id: number }
 
-useAppStore().setPageTitle('Add Birthday Entry')
-
 const { $toast } = useNuxtApp()
 
 const entries = ref<Entry[]>([])

@@ -28,8 +28,6 @@ import { PlusIcon } from '@lucide/vue'
 
 const senderIdListing = useTemplateRef('senderIdListing')
 
-useAppStore().setPageTitle('Register Sender ID')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

@@ -28,8 +28,6 @@
 </template>
 
 <script setup lang="ts">
-useAppStore().setPageTitle('Contacts')
-
 const activeTab = ref('insert')
 const tabs = [
   {

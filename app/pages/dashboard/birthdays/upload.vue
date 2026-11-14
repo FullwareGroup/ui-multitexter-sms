@@ -97,8 +97,6 @@ import { useField, useForm } from 'vee-validate'
 import { ArrowLeftIcon, DownloadIcon } from '@lucide/vue'
 import { apiClient } from '@/repository/api'
 
-useAppStore().setPageTitle('Upload Birthdays')
-
 const { $toast } = useNuxtApp()
 const columns = ['name', 'mobile_number', 'birthdate', 'message']
 

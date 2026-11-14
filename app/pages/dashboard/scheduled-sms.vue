@@ -33,8 +33,6 @@
 <script setup lang="ts">
 import { CalendarPlusIcon } from '@lucide/vue'
 
-useAppStore().setPageTitle('Scheduled SMS')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

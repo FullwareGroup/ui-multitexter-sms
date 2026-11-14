@@ -13,9 +13,6 @@
           >
             <MenuIcon :size="18" />
           </button>
-          <div class="text-lg font-semibold">
-            {{ pageTitle }}
-          </div>
         </div>
         <div class="flex items-center">
           <div class="flex items-center gap-2">
@@ -36,6 +33,5 @@ import { CoinsIcon, MenuIcon } from '@lucide/vue'
 
 defineEmits(['toggle'])
 
-const { pageTitle } = storeToRefs(useAppStore())
 const { userDetail } = storeToRefs(useUserStore())
 </script>

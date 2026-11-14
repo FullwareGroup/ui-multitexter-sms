@@ -43,8 +43,6 @@ const statuses = [
   },
 ]
 
-useAppStore().setPageTitle('Delivery Reports')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

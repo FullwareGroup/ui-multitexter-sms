@@ -257,8 +257,6 @@ import type {
   DropdownMenuItem,
 } from '@/components/ui/UiDropdownMenu.vue'
 
-useAppStore().setPageTitle('Contacts')
-
 const { $toast } = useNuxtApp()
 const listId = Number(useRoute().params.id)
 

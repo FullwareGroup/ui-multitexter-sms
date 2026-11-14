@@ -25,8 +25,6 @@
 <script setup lang="ts">
 import { SendIcon } from '@lucide/vue'
 
-useAppStore().setPageTitle('Queued Messages')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

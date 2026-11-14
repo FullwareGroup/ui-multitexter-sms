@@ -24,8 +24,6 @@ import type { PersonalizedTemplate } from '@/types/personalized'
 
 const template = ref<PersonalizedTemplate | null>(null)
 
-useAppStore().setPageTitle('Personalized SMS')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

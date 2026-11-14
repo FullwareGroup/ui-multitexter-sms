@@ -63,8 +63,6 @@ const { fetchPrices } = usePricing()
 
 onMounted(fetchPrices)
 
-useAppStore().setPageTitle('Buy SMS Units')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

@@ -14,8 +14,6 @@
 </template>
 
 <script setup lang="ts">
-useAppStore().setPageTitle('Share Unit')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

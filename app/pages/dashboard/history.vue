@@ -28,8 +28,6 @@
 </template>
 
 <script setup lang="ts">
-useAppStore().setPageTitle('History')
-
 const activeTab = ref('payments')
 const tabs = [
   {

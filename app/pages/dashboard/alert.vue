@@ -82,8 +82,6 @@ import {
 import { apiClient } from '@/repository/api'
 import type { Alert } from '@/types/alert'
 
-useAppStore().setPageTitle('Alerts')
-
 const alert = ref<Alert | null>(null)
 const loading = ref(true)
 const error = ref(false)

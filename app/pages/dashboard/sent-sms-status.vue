@@ -25,8 +25,6 @@
 <script setup lang="ts">
 import { SendIcon } from '@lucide/vue'
 
-useAppStore().setPageTitle('SMS Status')
-
 definePageMeta({
   layout: 'dashboard',
   middleware: 'auth',

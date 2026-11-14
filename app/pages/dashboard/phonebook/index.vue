@@ -24,8 +24,6 @@
 <script setup lang="ts">
 import { PlusIcon } from '@lucide/vue'
 
-useAppStore().setPageTitle('My Phonebook')
-
 const phonebookList = useTemplateRef('phonebookList')
 
 definePageMeta({
