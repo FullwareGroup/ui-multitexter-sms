@@ -44,6 +44,6 @@ useHead({
 
 useSeoMeta({
   ogUrl: canonicalUrl,
-  ogImage: `${site.url}/og-image.jpg`,
+  ogImage: `${site.url}/og-image.png`,
 })
 </script>
