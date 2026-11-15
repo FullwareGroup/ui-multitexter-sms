@@ -23,12 +23,7 @@
         class="marquee mt-12 overflow-hidden mask-[linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
       >
         <div class="marquee-track flex w-max">
-          <ul
-            v-for="copy in 2"
-            :key="copy"
-            :aria-hidden="copy === 2 || undefined"
-            class="flex shrink-0 gap-4 pr-4"
-          >
+          <ul v-for="copy in 2" :key="copy" class="flex shrink-0 gap-4 pr-4">
             <li
               v-for="client in clients"
               :key="client.image"
@@ -37,7 +32,6 @@
               <NuxtImg
                 :src="`/images/${client.image}`"
                 :alt="copy === 1 ? client.name : ''"
-                loading="lazy"
                 :class="[
                   'h-14 w-auto object-contain sm:h-16',
                   !client.transparent && 'rounded-lg bg-white',
@@ -82,7 +76,7 @@ const clients: Client[] = [
 }
 
 .marquee-track {
-  animation: marquee 50s linear infinite;
+  animation: marquee 30s linear infinite;
 }
 
 .marquee:hover .marquee-track {

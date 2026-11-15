@@ -10,7 +10,7 @@
           :delay="150"
           class="text-xl leading-snug font-semibold tracking-tight text-balance sm:text-2xl"
         >
-          For One Time Password and Financial Institution / Bank Traffic.
+          For One Time Password and Financial Institution or Bank Traffic.
         </h2>
         <p
           v-motion-fade-visible-once

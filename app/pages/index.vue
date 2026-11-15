@@ -6,6 +6,7 @@
     <HomeSectionPayment />
     <HomeSectionOneTime />
     <HomeSectionClients />
+    <HomeSectionTestimonials />
     <HomeSectionReferral />
   </div>
 </template>
