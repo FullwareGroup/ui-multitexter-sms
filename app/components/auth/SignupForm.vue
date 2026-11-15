@@ -91,7 +91,12 @@
       </form>
     </div>
 
-    <div class="mt-5 text-center text-xs">
+    <UiCheckbox
+      v-model="agreeTerms"
+      name="agreeTerms"
+      size="sm"
+      class="mt-5 items-center"
+    >
       By continuing you agree to Multitexter
       <NuxtLink to="/terms" class="text-primary font-semibold">
         Terms
@@ -100,7 +105,7 @@
       <NuxtLink to="/privacy-policy" class="text-primary font-semibold">
         Privacy Policy
       </NuxtLink>
-    </div>
+    </UiCheckbox>
   </div>
 </template>
 
@@ -131,6 +136,7 @@ const schema = Yup.object().shape({
     .label('Confirm password')
     .trim(),
   companyName: Yup.string().label('Company name').trim(),
+  agreeTerms: Yup.boolean().oneOf([true]),
 })
 const { errors, handleSubmit, meta } = useForm({
   validationSchema: schema,
@@ -142,6 +148,7 @@ const { errors, handleSubmit, meta } = useForm({
     password: '',
     confirmPassword: '',
     companyName: '',
+    agreeTerms: true,
   },
 })
 const { value: firstName } = useField<string>('firstName')
@@ -151,6 +158,7 @@ const { value: phoneNumber } = useField<string>('phoneNumber')
 const { value: password } = useField<string>('password')
 const { value: confirmPassword } = useField<string>('confirmPassword')
 const { value: companyName } = useField<string>('companyName')
+const { value: agreeTerms } = useField<boolean>('agreeTerms')
 const loading = ref(false)
 const errorMessage = ref<string | string[]>('')
 
