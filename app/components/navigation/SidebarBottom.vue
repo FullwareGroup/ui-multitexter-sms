@@ -1,5 +1,20 @@
 <template>
   <div class="border-border shrink-0 border-t p-3">
+    <a
+      href="https://ogarecharge.com/signup"
+      target="_blank"
+      rel="noopener"
+      class="focus-visible:outline-primary mb-3 block overflow-hidden rounded-lg focus-visible:outline-2 focus-visible:outline-offset-2"
+    >
+      <img
+        src="/ogarecharge-banner-ad.gif"
+        alt="OgaRecharge.com: API for airtime and biller services. Sign up free"
+        width="216"
+        height="132"
+        class="h-auto w-full"
+      />
+    </a>
+
     <UiDropdownMenu
       :items="accountItems"
       placement="top-start"
