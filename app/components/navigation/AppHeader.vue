@@ -39,18 +39,7 @@
           </ul>
 
           <div class="flex items-center gap-3">
-            <ColorScheme placeholder="..." tag="span">
-              <button
-                class="hover:bg-grey dark:hover:bg-grey/5 flex size-8 cursor-pointer items-center justify-center rounded transition-all ease-in"
-                type="button"
-                @click="
-                  toggleTheme(colorMode.value === 'dark' ? 'light' : 'dark')
-                "
-              >
-                <Moon v-if="colorMode.value === 'light'" :size="18" />
-                <Sun v-else :size="18" />
-              </button>
-            </ColorScheme>
+            <ThemeToggle />
 
             <div class="hidden items-center gap-2 md:flex">
               <template v-if="!isLoggedIn">
@@ -151,7 +140,7 @@
 </template>
 
 <script setup lang="ts">
-import { Phone, Mail, Menu, X, Moon, Sun, ArrowUpRight } from '@lucide/vue'
+import { Phone, Mail, Menu, X, ArrowUpRight } from '@lucide/vue'
 
 interface Menu {
   id: string
@@ -160,7 +149,6 @@ interface Menu {
   external?: boolean
 }
 
-const colorMode = useColorMode()
 const { isLoggedIn } = storeToRefs(useUserStore())
 
 const isMobileNavToggled = ref(false)
@@ -191,10 +179,6 @@ const menus: Menu[] = [
     url: '/blog',
   },
 ]
-
-const toggleTheme = (theme: string) => {
-  colorMode.preference = theme
-}
 
 onKeyStroke('Escape', () => {
   isMobileNavToggled.value = false

@@ -15,6 +15,7 @@
           </button>
         </div>
         <div class="flex items-center gap-5">
+          <ThemeToggle />
           <div class="flex items-center gap-2">
             <CoinsIcon class="text-primary size-4" />
             <span v-if="userDetail" class="text-sm font-bold">
