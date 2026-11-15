@@ -14,7 +14,7 @@
             <MenuIcon :size="18" />
           </button>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center gap-5">
           <div class="flex items-center gap-2">
             <CoinsIcon class="text-primary size-4" />
             <span v-if="userDetail" class="text-sm font-bold">
@@ -22,6 +22,15 @@
             </span>
             <UiSkeleton v-else class="h-4 w-16 rounded" />
           </div>
+          <UiButton
+            variant="outline"
+            radius="lg"
+            raised
+            size="md"
+            @click="navigateTo('/dashboard/buy-sms-online')"
+          >
+            Buy SMS Unit
+          </UiButton>
         </div>
       </div>
     </div>

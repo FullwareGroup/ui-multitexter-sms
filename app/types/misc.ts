@@ -35,3 +35,14 @@ export interface BankDepositRes {
   msg: string
   status: number
 }
+
+export interface Country {
+  id: number
+  name: string
+  code: string
+}
+
+export interface CountryRes {
+  msg: Country[]
+  status: number
+}

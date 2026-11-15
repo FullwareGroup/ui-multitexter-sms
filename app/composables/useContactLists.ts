@@ -38,5 +38,10 @@ export default function useContactLists() {
     }
   }
 
-  return { lists, loading, error, fetchContactLists }
+  const countContacts = (ids: number[]) =>
+    (lists.value ?? [])
+      .filter((list) => ids.includes(list.contactlistid))
+      .reduce((sum, list) => sum + Number(list.contactCount), 0)
+
+  return { lists, loading, error, fetchContactLists, countContacts }
 }

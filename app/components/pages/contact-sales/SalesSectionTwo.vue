@@ -168,11 +168,17 @@
                 v-model="country"
                 label="Country"
                 name="country"
-                placeholder="Choose country"
+                :placeholder="
+                  fetchingCountries ? 'Loading countries…' : 'Choose country'
+                "
                 search-placeholder="Search countries…"
                 searchable
-                :options="toOptions(countries)"
-                :error="errors.country"
+                :disabled="fetchingCountries"
+                :options="countryOptions"
+                :error="
+                  errors.country ||
+                  (countriesError ? 'Couldn’t load countries' : undefined)
+                "
               />
             </div>
 
@@ -288,6 +294,12 @@ import { apiClient } from '@/repository/api'
 
 const { $toast } = useNuxtApp()
 const { handleReset } = useRecaptcha()
+const {
+  countries,
+  loading: fetchingCountries,
+  error: countriesError,
+  fetchCountries,
+} = useCountry()
 
 const solutions = [
   {
@@ -321,6 +333,10 @@ const volumes = ['<10K', '10K-100K', '100K-500K', '500K-1M', '1M+', 'Not sure']
 
 const toOptions = (values: string[]) =>
   values.map((value) => ({ value, label: value }))
+
+const countryOptions = computed(() =>
+  toOptions(countries.value?.map(({ name }) => name) ?? []),
+)
 
 const chip =
   'group border-border text-muted-foreground not-has-checked:hover:border-muted-foreground has-checked:border-primary has-checked:bg-primary/10 has-checked:text-primary has-focus-visible:ring-primary/35 inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-full border px-4 text-sm font-medium transition-[background-color,border-color,color,box-shadow] select-none has-focus-visible:ring-3'
@@ -392,6 +408,10 @@ const resetRecaptcha = () => {
   recaptchaToken.value = ''
   if (recaptchaWidgetId.value !== null) handleReset(recaptchaWidgetId.value)
 }
+
+onMounted(() => {
+  if (!countries.value?.length && !fetchingCountries.value) fetchCountries()
+})
 
 const onSubmit = handleSubmit(async (values) => {
   try {

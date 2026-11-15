@@ -167,3 +167,36 @@ export interface MessageResendRes {
   status: number
   msg: string
 }
+
+export interface MessageRes {
+  status: number
+  msg: string
+  bulk_id?: string
+}
+
+export interface QuickComposeDraft {
+  senderName: string
+  recipients: string
+  message: string
+}
+
+export interface RecurrentType {
+  id: number
+  name: string
+}
+
+export interface MessageReq {
+  id?: number
+  senderName: string
+  message: string
+  recipients: string
+  dnd: number
+  listIds: string
+  countryCode?: number
+  messageType?: number
+  source: string
+  sendTime?: string
+  recurrentType?: number
+  recurrentCount?: number
+  sendLater?: boolean
+}

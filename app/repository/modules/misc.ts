@@ -6,6 +6,7 @@ import type {
   SenderNameReq,
   SenderNameRes,
   BankDepositRes,
+  CountryRes,
 } from '@/types/misc'
 
 export const miscApi = (http: HttpClient) => ({
@@ -15,4 +16,5 @@ export const miscApi = (http: HttpClient) => ({
     http.post<SenderNameRes>(apiRoutes.misc.senderNameRequest, body),
   submitPaymentDetails: (formData: FormData) =>
     http.post<BankDepositRes>(apiRoutes.misc.payment, formData),
+  fetchCountries: () => http.get<CountryRes>(apiRoutes.misc.countries),
 })

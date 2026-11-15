@@ -4,8 +4,8 @@ export default function useComposeMessage(
 ) {
   const maxCharacter = ref(160)
   const page = ref(1)
-  const reservedWords = [
-    {
+  const reservedWords: { name: string; word: string }[] = [
+    /* {
       name: 'vote',
       word: 'vo te',
     },
@@ -49,10 +49,10 @@ export default function useComposeMessage(
       name: 'nup',
       word: 'N.UP',
     },
-    /* {
-          name: 'apa',
-          word: 'A.PA',
-        }, */
+    {
+      name: 'apa',
+      word: 'A.PA',
+    },
     {
       name: 'ypp',
       word: 'Y.PP',
@@ -92,7 +92,7 @@ export default function useComposeMessage(
     {
       name: 'Account',
       word: 'Acc',
-    },
+    }, */
   ]
 
   const count = computed(() => {
@@ -148,7 +148,7 @@ export default function useComposeMessage(
     )
 
     // Filter out number not to include
-    const numbersNotDeliveredTo = sortDuplicateNumbers.filter((number) => {
+    /* const numbersNotDeliveredTo = sortDuplicateNumbers.filter((number) => {
       return (
         !number.startsWith('234709') &&
         !number.startsWith('2347027') &&
@@ -163,9 +163,9 @@ export default function useComposeMessage(
         !number.startsWith('07029') &&
         !number.startsWith('0819')
       )
-    })
+    }) */
 
-    recipientField.value = numbersNotDeliveredTo.toString()
+    recipientField.value = sortDuplicateNumbers.toString()
   }
 
   const checkMessageLength = () => {

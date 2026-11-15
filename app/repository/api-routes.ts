@@ -30,6 +30,7 @@ export const apiRoutes = {
     unsubscribe: '/unsubscribe',
     senderNameRequest: '/sender-name-request',
     payment: '/payment-user',
+    countries: '/country-code',
   },
   referral: {
     referrals: '/referral',
@@ -99,6 +100,10 @@ export const apiRoutes = {
     resend: (remoteMsgId: string) => `/bulksms/restart/${remoteMsgId}`,
     queued: (page: number) => `/queued-messages?page=${page}`,
     smsDetail: (id: number) => `/bulksms/status/${id}`,
+    recurrentType: '/recurrent-type',
+    sendMessage: '/sendsms',
+    saveAsDraft: '/draft/save',
+    editScheduledMessage: (id: number) => `/scheduled/update/${id}`,
   },
   personalized: {
     upload: '/personalized/messages',
