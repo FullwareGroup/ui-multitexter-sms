@@ -38,78 +38,70 @@
           loading && !pendingId && 'pointer-events-none opacity-60',
         ]"
       >
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="(heading, index) in headings" :key="index">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="row in rows" :key="row.message.id">
-              <TableCell class="text-muted-foreground w-12">
-                {{ row.number }}.
-              </TableCell>
-              <TableCell>
-                <SMSStatusBadge :status="row.message.status" />
-              </TableCell>
-              <TableCell class="font-medium">
-                {{ row.message.displayname || '—' }}
-              </TableCell>
-              <TableCell>
-                <span class="block max-w-64 truncate">
-                  {{ row.message.message || '—' }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <span
-                  class="text-muted-foreground block max-w-72 min-w-48 whitespace-normal"
-                >
-                  {{ row.message.comment || '—' }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <template v-if="row.createdOn">
-                  {{ row.createdOn.date }}
-                  <span class="text-muted-foreground block text-xs">
-                    {{ row.createdOn.time }}
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell class="text-right">
-                <UiButton
-                  v-if="row.processing"
-                  variant="outline"
-                  size="sm"
-                  radius="lg"
-                  :loading="pendingId === row.message.id"
-                  :disabled="!!pendingId"
-                  @click="checkStatus(row.message)"
-                >
-                  <template #leading>
-                    <RefreshCwIcon class="size-3.5" />
-                  </template>
-                  Check status
-                </UiButton>
-                <UiButton
-                  v-else-if="row.failed"
-                  variant="outline"
-                  size="sm"
-                  radius="lg"
-                  :loading="pendingId === row.message.id"
-                  :disabled="!!pendingId"
-                  @click="resendMessage(row.message)"
-                >
-                  <template #leading>
-                    <RotateCcwIcon class="size-3.5" />
-                  </template>
-                  Resend
-                </UiButton>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+        <UiTable
+          v-slot="{ row }"
+          :headings="headings"
+          :rows="rows"
+          :per-page="perPage"
+          :current-page="currentPage"
+        >
+          <td>
+            <SMSStatusBadge :status="row.message.status" />
+          </td>
+          <td class="font-medium">
+            {{ row.message.displayname || '—' }}
+          </td>
+          <td>
+            <span class="block max-w-64 truncate">
+              {{ row.message.message || '—' }}
+            </span>
+          </td>
+          <td>
+            <span
+              class="text-muted-foreground block max-w-72 min-w-48 whitespace-normal"
+            >
+              {{ row.message.comment || '—' }}
+            </span>
+          </td>
+          <td>
+            <template v-if="row.createdOn">
+              {{ row.createdOn.date }}
+              <span class="text-muted-foreground block text-xs">
+                {{ row.createdOn.time }}
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td class="text-right">
+            <UiButton
+              v-if="row.processing"
+              variant="outline"
+              size="sm"
+              radius="lg"
+              :loading="pendingId === row.message.id"
+              :disabled="!!pendingId"
+              @click="checkStatus(row.message)"
+            >
+              <template #leading>
+                <RefreshCwIcon class="size-3.5" />
+              </template>
+              Check status
+            </UiButton>
+            <UiButton
+              v-else-if="row.failed"
+              variant="outline"
+              size="sm"
+              radius="lg"
+              :loading="pendingId === row.message.id"
+              :disabled="!!pendingId"
+              @click="resendMessage(row.message)"
+            >
+              <template #leading>
+                <RotateCcwIcon class="size-3.5" />
+              </template>
+              Resend
+            </UiButton>
+          </td>
         </UiTable>
 
         <UiPagination
@@ -137,15 +129,7 @@ import type { SMSStatus } from '@/types/message'
 
 const { $toast } = useNuxtApp()
 
-const headings = [
-  '',
-  'Status',
-  'Sender Name',
-  'Message',
-  'Feedback',
-  'Date',
-  '',
-]
+const headings = ['Status', 'Sender Name', 'Message', 'Feedback', 'Date', '']
 
 const messages = ref<SMSStatus[] | null>(null)
 const loading = ref(true)
@@ -168,11 +152,11 @@ const createdOn = (value: string | null | undefined) =>
       }
 
 const rows = computed(() =>
-  (messages.value ?? []).map((message, index) => {
+  (messages.value ?? []).map((message) => {
     const status = message.status?.toLowerCase()
     return {
+      id: message.id,
       message,
-      number: incrementPageNumber(index, perPage.value, currentPage.value),
       processing: status === 'processing',
       failed: status !== 'processing' && status !== 'completed',
       createdOn: createdOn(message.created_at),

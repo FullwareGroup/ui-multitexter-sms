@@ -38,63 +38,49 @@
           loading && 'pointer-events-none opacity-60',
         ]"
       >
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="heading in headings" :key="heading">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="(row, index) in rows" :key="row.senderId.id">
-              <TableCell class="text-muted-foreground w-12">
-                {{ index + 1 }}.
-              </TableCell>
-              <TableCell class="font-medium">
-                {{ row.senderId.sender }}
-              </TableCell>
-              <TableCell>
-                {{ row.senderId.company_name || '—' }}
-                <span
-                  v-if="row.senderId.business_nature"
-                  class="text-muted-foreground block max-w-xs truncate text-xs"
-                >
-                  {{ row.senderId.business_nature }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <SenderIdStatusBadge
-                  :status="row.senderId.status"
-                  :label="row.senderId.status_name"
-                />
-              </TableCell>
-              <TableCell>
-                <template v-if="row.registered">
-                  {{ row.registered.date }}
-                  <span class="text-muted-foreground block text-xs">
-                    {{ row.registered.time }}
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell class="w-16">
-                <UiDropdownMenu
-                  :items="menuItems"
-                  placement="end"
-                  @select="onSelect($event, row.senderId)"
-                >
-                  <button
-                    type="button"
-                    :aria-label="`Actions for ${row.senderId.sender}`"
-                    class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3"
-                  >
-                    <EllipsisIcon class="size-4" />
-                  </button>
-                </UiDropdownMenu>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+        <UiTable v-slot="{ row }" :headings="headings" :rows="rows">
+          <td class="font-medium">
+            {{ row.senderId.sender }}
+          </td>
+          <td>
+            {{ row.senderId.company_name || '—' }}
+            <span
+              v-if="row.senderId.business_nature"
+              class="text-muted-foreground block max-w-xs truncate text-xs"
+            >
+              {{ row.senderId.business_nature }}
+            </span>
+          </td>
+          <td>
+            <SenderIdStatusBadge
+              :status="row.senderId.status"
+              :label="row.senderId.status_name"
+            />
+          </td>
+          <td>
+            <template v-if="row.registered">
+              {{ row.registered.date }}
+              <span class="text-muted-foreground block text-xs">
+                {{ row.registered.time }}
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td class="w-16">
+            <UiDropdownMenu
+              :items="menuItems"
+              placement="end"
+              @select="onSelect($event, row.senderId)"
+            >
+              <button
+                type="button"
+                :aria-label="`Actions for ${row.senderId.sender}`"
+                class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3"
+              >
+                <EllipsisIcon class="size-4" />
+              </button>
+            </UiDropdownMenu>
+          </td>
         </UiTable>
       </div>
     </template>
@@ -127,7 +113,7 @@ import type {
   DropdownMenuItem,
 } from '@/components/ui/UiDropdownMenu.vue'
 
-const headings = ['', 'Sender ID', 'Company', 'Status', 'Registered', 'Action']
+const headings = ['Sender ID', 'Company', 'Status', 'Registered', 'Action']
 const menuItems: DropdownMenuItem[] = [
   { id: 'edit', label: 'Edit', icon: PencilIcon },
   { type: 'divider' },
@@ -150,6 +136,7 @@ const rows = computed(() =>
   [...(senderIds.value ?? [])]
     .sort((a, b) => timeOf(b.date_registered) - timeOf(a.date_registered))
     .map((senderId) => ({
+      id: senderId.id,
       senderId,
       registered: senderId.date_registered
         ? {

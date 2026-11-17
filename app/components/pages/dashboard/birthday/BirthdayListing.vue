@@ -44,74 +44,62 @@
           loading && 'pointer-events-none opacity-60',
         ]"
       >
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="heading in headings" :key="heading">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow
-              v-for="row in rows"
-              :key="row.birthday.id"
-              class="cursor-pointer"
-              @click="viewBirthday(row.birthday)"
+        <UiTable
+          v-slot="{ row }"
+          :headings="headings"
+          :rows="rows"
+          :per-page="perPage"
+          :current-page="currentPage"
+          @row-click="(row) => viewBirthday(row.birthday)"
+        >
+          <td>
+            <BirthdayStatusBadge :status="row.birthday.status" />
+          </td>
+          <td>{{ row.birthday.sender }}</td>
+          <td>
+            <span class="font-medium">{{ row.birthday.username }}</span>
+            <span class="text-muted-foreground block text-xs">
+              {{ row.birthday.destination }}
+            </span>
+          </td>
+          <td>
+            <template v-if="row.lastSent">
+              {{ row.lastSent.date }}
+              <span class="text-muted-foreground block text-xs">
+                {{ row.lastSent.time }}
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">Not sent yet</span>
+          </td>
+          <td>
+            <template v-if="row.nextSent">
+              {{ row.nextSent.date }}
+              <span class="text-muted-foreground block text-xs">
+                {{ row.nextSent.time }}
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td class="w-16" @click.stop>
+            <UiDropdownMenu
+              :items="menuItems(row.birthday)"
+              placement="end"
+              @select="onSelect($event, row.birthday)"
             >
-              <TableCell class="text-muted-foreground w-12">
-                {{ row.number }}.
-              </TableCell>
-              <TableCell>
-                <BirthdayStatusBadge :status="row.birthday.status" />
-              </TableCell>
-              <TableCell>{{ row.birthday.sender }}</TableCell>
-              <TableCell>
-                <span class="font-medium">{{ row.birthday.username }}</span>
-                <span class="text-muted-foreground block text-xs">
-                  {{ row.birthday.destination }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <template v-if="row.lastSent">
-                  {{ row.lastSent.date }}
-                  <span class="text-muted-foreground block text-xs">
-                    {{ row.lastSent.time }}
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">Not sent yet</span>
-              </TableCell>
-              <TableCell>
-                <template v-if="row.nextSent">
-                  {{ row.nextSent.date }}
-                  <span class="text-muted-foreground block text-xs">
-                    {{ row.nextSent.time }}
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell class="w-16" @click.stop>
-                <UiDropdownMenu
-                  :items="menuItems(row.birthday)"
-                  placement="end"
-                  @select="onSelect($event, row.birthday)"
-                >
-                  <button
-                    type="button"
-                    :disabled="pendingId === row.birthday.id"
-                    class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3 disabled:cursor-progress disabled:opacity-60"
-                  >
-                    <span
-                      v-if="pendingId === row.birthday.id"
-                      class="size-4 animate-spin rounded-full border-2 border-current border-r-transparent"
-                      aria-hidden="true"
-                    />
-                    <EllipsisIcon v-else class="size-4" />
-                  </button>
-                </UiDropdownMenu>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+              <button
+                type="button"
+                :disabled="pendingId === row.birthday.id"
+                class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3 disabled:cursor-progress disabled:opacity-60"
+              >
+                <span
+                  v-if="pendingId === row.birthday.id"
+                  class="size-4 animate-spin rounded-full border-2 border-current border-r-transparent"
+                  aria-hidden="true"
+                />
+                <EllipsisIcon v-else class="size-4" />
+              </button>
+            </UiDropdownMenu>
+          </td>
         </UiTable>
 
         <UiPagination
@@ -164,7 +152,6 @@ import type {
 const { $toast } = useNuxtApp()
 
 const headings = [
-  '',
   'Status',
   'Sender Name',
   'Recipient',
@@ -201,9 +188,9 @@ const when = (value: string | null | undefined) =>
       }
 
 const rows = computed(() =>
-  (birthdays.value ?? []).map((birthday, index) => ({
+  (birthdays.value ?? []).map((birthday) => ({
+    id: birthday.id,
     birthday,
-    number: incrementPageNumber(index, perPage.value, currentPage.value),
     lastSent: when(birthday.last_sent),
     nextSent: when(birthday.next_sent),
   })),
@@ -211,8 +198,8 @@ const rows = computed(() =>
 
 const stats = computed(() => {
   const shown = rows.value.length
-  const first = rows.value[0]?.number ?? 0
-  const last = rows.value.at(-1)?.number ?? 0
+  const first = incrementPageNumber(0, perPage.value, currentPage.value)
+  const last = first + shown - 1
 
   return [
     {

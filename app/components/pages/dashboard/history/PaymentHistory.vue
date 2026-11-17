@@ -19,45 +19,31 @@
       />
 
       <div v-else class="border-border overflow-hidden rounded-lg border">
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="heading in headings" :key="heading">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="(payment, index) in rows" :key="index">
-              <TableCell class="text-muted-foreground w-12">
-                {{ index + 1 }}.
-              </TableCell>
-              <TableCell>
-                {{ payment.paidAt.date }}
-                <span
-                  v-if="payment.paidAt.time"
-                  class="text-muted-foreground block text-xs"
-                >
-                  {{ payment.paidAt.time }}
-                </span>
-              </TableCell>
-              <TableCell class="text-muted-foreground font-mono text-xs">
-                {{ payment.transid }}
-              </TableCell>
-              <TableCell class="font-medium">{{ payment.amount }}</TableCell>
-              <TableCell>{{ formatNumberWithComma(payment.units) }}</TableCell>
-              <TableCell>
-                <span
-                  :class="[
-                    'inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold',
-                    payment.state.tone,
-                  ]"
-                >
-                  {{ payment.state.label }}
-                </span>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+        <UiTable v-slot="{ row: payment }" :headings="headings" :rows="rows">
+          <td>
+            {{ payment.paidAt.date }}
+            <span
+              v-if="payment.paidAt.time"
+              class="text-muted-foreground block text-xs"
+            >
+              {{ payment.paidAt.time }}
+            </span>
+          </td>
+          <td class="text-muted-foreground font-mono text-xs">
+            {{ payment.transid }}
+          </td>
+          <td class="font-medium">{{ payment.amount }}</td>
+          <td>{{ formatNumberWithComma(payment.units) }}</td>
+          <td>
+            <span
+              :class="[
+                'inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold',
+                payment.state.tone,
+              ]"
+            >
+              {{ payment.state.label }}
+            </span>
+          </td>
         </UiTable>
       </div>
     </div>
@@ -69,7 +55,7 @@ import { CreditCard } from '@lucide/vue'
 import type { PaymentHistory } from '@/types/history'
 import { apiClient } from '@/repository/api'
 
-const headings = ['', 'Date', 'Transaction ID', 'Amount', 'Units', 'Status']
+const headings = ['Date', 'Transaction ID', 'Amount', 'Units', 'Status']
 const payments = ref<PaymentHistory[] | null>(null)
 const loading = ref(true)
 const error = ref(false)

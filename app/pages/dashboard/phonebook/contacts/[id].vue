@@ -148,34 +148,27 @@
                 refreshing && 'pointer-events-none opacity-60',
               ]"
             >
-              <UiTable>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead v-for="heading in headings" :key="heading">
-                      {{ heading }}
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow v-for="row in rows" :key="row.contact.contactid">
-                    <TableCell class="text-muted-foreground w-12">
-                      {{ row.number }}.
-                    </TableCell>
-                    <TableCell class="font-medium tabular-nums">
-                      {{ row.contact.mobilenumber }}
-                    </TableCell>
-                    <TableCell class="w-16">
-                      <button
-                        type="button"
-                        :aria-label="`Remove ${row.contact.mobilenumber}`"
-                        class="text-muted-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none hover:bg-red-600/10 hover:text-red-600 focus-visible:ring-3 dark:hover:text-red-400"
-                        @click="removeContact(row.contact)"
-                      >
-                        <Trash2Icon class="size-4" />
-                      </button>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
+              <UiTable
+                v-slot="{ row }"
+                :headings="headings"
+                :rows="contacts"
+                row-key="contactid"
+                :per-page="perPage"
+                :current-page="currentPage"
+              >
+                <td class="font-medium tabular-nums">
+                  {{ row.mobilenumber }}
+                </td>
+                <td class="w-16">
+                  <button
+                    type="button"
+                    :aria-label="`Remove ${row.mobilenumber}`"
+                    class="text-muted-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none hover:bg-red-600/10 hover:text-red-600 focus-visible:ring-3 dark:hover:text-red-400"
+                    @click="removeContact(row)"
+                  >
+                    <Trash2Icon class="size-4" />
+                  </button>
+                </td>
               </UiTable>
 
               <UiPagination
@@ -260,7 +253,7 @@ import type {
 const { $toast } = useNuxtApp()
 const listId = Number(useRoute().params.id)
 
-const headings = ['', 'Phone number', 'Action']
+const headings = ['Phone number', 'Action']
 const listMenu: DropdownMenuItem[] = [
   { id: 'edit', label: 'Edit list', icon: PencilIcon },
   { type: 'divider' },
@@ -305,13 +298,6 @@ const networkStats = computed(() => {
     share: sum ? Math.round((Number(network.total) / sum) * 100) : 0,
   }))
 })
-
-const rows = computed(() =>
-  contacts.value.map((contact, index) => ({
-    contact,
-    number: incrementPageNumber(index, perPage.value, currentPage.value),
-  })),
-)
 
 let lastRequest = 0
 let appliedQuery: string | null = ''

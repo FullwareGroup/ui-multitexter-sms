@@ -38,87 +38,75 @@
           loading && 'pointer-events-none opacity-60',
         ]"
       >
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="(heading, index) in headings" :key="index">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow
-              v-for="row in rows"
-              :key="row.message.id"
-              class="cursor-pointer"
-              @click="viewMessage(row.message)"
+        <UiTable
+          v-slot="{ row }"
+          :headings="headings"
+          :rows="rows"
+          :per-page="perPage"
+          :current-page="currentPage"
+          @row-click="(row) => viewMessage(row.message)"
+        >
+          <td>
+            <ScheduledStatusBadge :active="row.active" />
+          </td>
+          <td class="font-medium">
+            {{ row.message.displayname || '—' }}
+          </td>
+          <td class="tabular-nums">
+            <template v-if="row.recipients.length">
+              {{ row.recipients[0] }}
+              <span
+                v-if="row.recipients.length > 1"
+                class="text-muted-foreground block text-xs"
+              >
+                +{{ formatNumberWithComma(row.recipients.length - 1) }}
+                more
+              </span>
+            </template>
+            <template v-else-if="row.lists">
+              {{ row.lists }} contact
+              {{ row.lists === 1 ? 'list' : 'lists' }}
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td>
+            <span class="block max-w-64 truncate">
+              {{ row.message.message || '—' }}
+            </span>
+          </td>
+          <td>
+            <template v-if="row.deliversOn">
+              {{ row.deliversOn.date }}
+              <span class="text-muted-foreground block text-xs">
+                {{ row.deliversOn.time }}
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td class="tabular-nums">
+            {{ formatNumberWithComma(row.message.tag) }}
+          </td>
+          <td class="w-16" @click.stop>
+            <UiDropdownMenu
+              :items="menuItems(row.active)"
+              placement="end"
+              @select="onSelect($event, row.message)"
             >
-              <TableCell class="text-muted-foreground w-12">
-                {{ row.number }}.
-              </TableCell>
-              <TableCell>
-                <ScheduledStatusBadge :active="row.active" />
-              </TableCell>
-              <TableCell class="font-medium">
-                {{ row.message.displayname || '—' }}
-              </TableCell>
-              <TableCell class="tabular-nums">
-                <template v-if="row.recipients.length">
-                  {{ row.recipients[0] }}
-                  <span
-                    v-if="row.recipients.length > 1"
-                    class="text-muted-foreground block text-xs"
-                  >
-                    +{{ formatNumberWithComma(row.recipients.length - 1) }}
-                    more
-                  </span>
-                </template>
-                <template v-else-if="row.lists">
-                  {{ row.lists }} contact
-                  {{ row.lists === 1 ? 'list' : 'lists' }}
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell>
-                <span class="block max-w-64 truncate">
-                  {{ row.message.message || '—' }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <template v-if="row.deliversOn">
-                  {{ row.deliversOn.date }}
-                  <span class="text-muted-foreground block text-xs">
-                    {{ row.deliversOn.time }}
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell class="tabular-nums">
-                {{ formatNumberWithComma(row.message.tag) }}
-              </TableCell>
-              <TableCell class="w-16" @click.stop>
-                <UiDropdownMenu
-                  :items="menuItems(row.active)"
-                  placement="end"
-                  @select="onSelect($event, row.message)"
-                >
-                  <button
-                    type="button"
-                    aria-label="Message actions"
-                    :disabled="pendingId === row.message.id"
-                    class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3 disabled:cursor-progress disabled:opacity-60"
-                  >
-                    <span
-                      v-if="pendingId === row.message.id"
-                      class="size-4 animate-spin rounded-full border-2 border-current border-r-transparent"
-                      aria-hidden="true"
-                    />
-                    <EllipsisIcon v-else class="size-4" />
-                  </button>
-                </UiDropdownMenu>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+              <button
+                type="button"
+                aria-label="Message actions"
+                :disabled="pendingId === row.message.id"
+                class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3 disabled:cursor-progress disabled:opacity-60"
+              >
+                <span
+                  v-if="pendingId === row.message.id"
+                  class="size-4 animate-spin rounded-full border-2 border-current border-r-transparent"
+                  aria-hidden="true"
+                />
+                <EllipsisIcon v-else class="size-4" />
+              </button>
+            </UiDropdownMenu>
+          </td>
         </UiTable>
 
         <UiPagination
@@ -166,7 +154,6 @@ import type {
 const { $toast } = useNuxtApp()
 
 const headings = [
-  '',
   'Status',
   'Sender Name',
   'Recipients',
@@ -201,9 +188,9 @@ const deliversOn = (value: string | null | undefined) =>
       }
 
 const rows = computed(() =>
-  (messages.value ?? []).map((message, index) => ({
+  (messages.value ?? []).map((message) => ({
+    id: message.id,
     message,
-    number: incrementPageNumber(index, perPage.value, currentPage.value),
     active: message.iscancel === 0,
     recipients: splitRecipients(message.recipient),
     lists: splitContactListIds(message.listids).length,

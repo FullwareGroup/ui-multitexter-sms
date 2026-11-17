@@ -19,41 +19,27 @@
       />
 
       <div v-else class="border-border overflow-hidden rounded-lg border">
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="heading in headings" :key="heading">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="(recharge, index) in rows" :key="index">
-              <TableCell class="text-muted-foreground w-12">
-                {{ index + 1 }}.
-              </TableCell>
-              <TableCell>
-                {{ recharge.rechargedAt.date }}
-                <span
-                  v-if="recharge.rechargedAt.time"
-                  class="text-muted-foreground block text-xs"
-                >
-                  {{ recharge.rechargedAt.time }}
-                </span>
-              </TableCell>
-              <TableCell class="font-medium">
-                {{ formatNumberWithComma(recharge.units) }}
-              </TableCell>
-              <TableCell>
-                {{ formatNumberWithComma(recharge.balance) }}
-              </TableCell>
-              <TableCell>
-                <span class="block min-w-56 whitespace-normal">
-                  {{ recharge.description || '—' }}
-                </span>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+        <UiTable v-slot="{ row: recharge }" :headings="headings" :rows="rows">
+          <td>
+            {{ recharge.rechargedAt.date }}
+            <span
+              v-if="recharge.rechargedAt.time"
+              class="text-muted-foreground block text-xs"
+            >
+              {{ recharge.rechargedAt.time }}
+            </span>
+          </td>
+          <td class="font-medium">
+            {{ formatNumberWithComma(recharge.units) }}
+          </td>
+          <td>
+            {{ formatNumberWithComma(recharge.balance) }}
+          </td>
+          <td>
+            <span class="block min-w-56 whitespace-normal">
+              {{ recharge.description || '—' }}
+            </span>
+          </td>
         </UiTable>
       </div>
     </div>
@@ -65,7 +51,7 @@ import { Coins } from '@lucide/vue'
 import type { RechargeHistory } from '@/types/history'
 import { apiClient } from '@/repository/api'
 
-const headings = ['', 'Date', 'Units', 'Balance', 'Description']
+const headings = ['Date', 'Units', 'Balance', 'Description']
 const recharges = ref<RechargeHistory[] | null>(null)
 const loading = ref(true)
 const error = ref(false)

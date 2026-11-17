@@ -19,48 +19,38 @@
       />
 
       <div v-else class="border-border overflow-hidden rounded-lg border">
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="heading in headings" :key="heading">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="(transaction, index) in rows" :key="index">
-              <TableCell class="text-muted-foreground w-12">
-                {{ index + 1 }}.
-              </TableCell>
-              <TableCell>
-                {{ transaction.happenedAt.date }}
-                <span
-                  v-if="transaction.happenedAt.time"
-                  class="text-muted-foreground block text-xs"
-                >
-                  {{ transaction.happenedAt.time }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <span
-                  class="bg-foreground/5 inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold capitalize"
-                >
-                  {{ transaction.transaction || '—' }}
-                </span>
-              </TableCell>
-              <TableCell class="font-medium">
-                {{ formatNumberWithComma(transaction.units) }}
-              </TableCell>
-              <TableCell>
-                {{ formatNumberWithComma(transaction.balance) }}
-              </TableCell>
-              <TableCell>
-                <span class="block min-w-56 whitespace-normal">
-                  {{ transaction.description || '—' }}
-                </span>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+        <UiTable
+          v-slot="{ row: transaction }"
+          :headings="headings"
+          :rows="rows"
+        >
+          <td>
+            {{ transaction.happenedAt.date }}
+            <span
+              v-if="transaction.happenedAt.time"
+              class="text-muted-foreground block text-xs"
+            >
+              {{ transaction.happenedAt.time }}
+            </span>
+          </td>
+          <td>
+            <span
+              class="bg-foreground/5 inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold capitalize"
+            >
+              {{ transaction.transaction || '—' }}
+            </span>
+          </td>
+          <td class="font-medium">
+            {{ formatNumberWithComma(transaction.units) }}
+          </td>
+          <td>
+            {{ formatNumberWithComma(transaction.balance) }}
+          </td>
+          <td>
+            <span class="block min-w-56 whitespace-normal">
+              {{ transaction.description || '—' }}
+            </span>
+          </td>
         </UiTable>
       </div>
     </div>
@@ -72,7 +62,7 @@ import { ArrowLeftRight } from '@lucide/vue'
 import type { TransactionHistory } from '@/types/history'
 import { apiClient } from '@/repository/api'
 
-const headings = ['', 'Date', 'Transaction', 'Units', 'Balance', 'Description']
+const headings = ['Date', 'Transaction', 'Units', 'Balance', 'Description']
 const transactions = ref<TransactionHistory[] | null>(null)
 const loading = ref(true)
 const error = ref(false)

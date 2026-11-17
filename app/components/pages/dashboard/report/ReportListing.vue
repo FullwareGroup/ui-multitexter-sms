@@ -48,58 +48,46 @@
           loading && 'pointer-events-none opacity-60',
         ]"
       >
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="(heading, index) in headings" :key="index">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow
-              v-for="row in rows"
-              :key="row.number"
-              class="cursor-pointer"
-              @click="viewReport(row.report)"
+        <UiTable
+          v-slot="{ row }"
+          :headings="headings"
+          :rows="rows"
+          :per-page="perPage"
+          :current-page="currentPage"
+          @row-click="(row) => viewReport(row.report)"
+        >
+          <td>
+            <ReportStatusBadge :status="row.report.status" />
+          </td>
+          <td class="font-medium">
+            {{ row.report.sender_name || '—' }}
+          </td>
+          <td class="tabular-nums">
+            {{ row.report.recipient || '—' }}
+          </td>
+          <td>
+            <span class="block max-w-64 truncate">
+              {{ row.report.content || '—' }}
+            </span>
+          </td>
+          <td>
+            <template v-if="row.sentOn">
+              {{ row.sentOn.date }}
+              <span class="text-muted-foreground block text-xs">
+                {{ row.sentOn.time }}
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td class="w-14">
+            <button
+              type="button"
+              class="text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none focus-visible:ring-3"
+              @click.stop="viewReport(row.report)"
             >
-              <TableCell class="text-muted-foreground w-12">
-                {{ row.number }}.
-              </TableCell>
-              <TableCell>
-                <ReportStatusBadge :status="row.report.status" />
-              </TableCell>
-              <TableCell class="font-medium">
-                {{ row.report.sender_name || '—' }}
-              </TableCell>
-              <TableCell class="tabular-nums">
-                {{ row.report.recipient || '—' }}
-              </TableCell>
-              <TableCell>
-                <span class="block max-w-64 truncate">
-                  {{ row.report.content || '—' }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <template v-if="row.sentOn">
-                  {{ row.sentOn.date }}
-                  <span class="text-muted-foreground block text-xs">
-                    {{ row.sentOn.time }}
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell class="w-14">
-                <button
-                  type="button"
-                  class="text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg transition-colors outline-none focus-visible:ring-3"
-                  @click.stop="viewReport(row.report)"
-                >
-                  <ChevronRightIcon class="size-4" />
-                </button>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+              <ChevronRightIcon class="size-4" />
+            </button>
+          </td>
         </UiTable>
 
         <UiPagination
@@ -138,7 +126,7 @@ const {
   applyFilters,
 } = useDeliveryReports()
 
-const headings = ['', 'Status', 'Sender', 'Recipient', 'Message', 'Sent on', '']
+const headings = ['Status', 'Sender', 'Recipient', 'Message', 'Sent on', '']
 
 const selected = ref<DeliveryReport | null>(null)
 const viewing = ref(false)
@@ -152,9 +140,8 @@ const sentOn = (value: string | null | undefined) =>
       }
 
 const rows = computed(() =>
-  (reports.value ?? []).map((report, index) => ({
+  (reports.value ?? []).map((report) => ({
     report,
-    number: incrementPageNumber(index, perPage.value, currentPage.value),
     sentOn: sentOn(report.disptachtime),
   })),
 )

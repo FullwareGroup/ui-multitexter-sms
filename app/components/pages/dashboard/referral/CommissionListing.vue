@@ -28,38 +28,28 @@
       />
 
       <div v-else class="border-border overflow-hidden rounded-lg border">
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="heading in headings" :key="heading">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="(commission, index) in commissions" :key="index">
-              <TableCell class="text-muted-foreground w-12">
-                {{ index + 1 }}.
-              </TableCell>
-              <TableCell>{{ commission.name }}</TableCell>
-              <TableCell>{{ commission.email }}</TableCell>
-              <TableCell class="font-medium">
-                {{ formatNaira(Number(commission.amount)) }}
-              </TableCell>
-              <TableCell>
-                <span
-                  :class="[
-                    'inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold',
-                    isPaid(commission)
-                      ? 'bg-green-500/10 text-green-700 dark:text-green-400'
-                      : 'bg-amber-500/10 text-amber-700 dark:text-amber-400',
-                  ]"
-                >
-                  {{ isPaid(commission) ? 'Paid' : 'Not paid' }}
-                </span>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+        <UiTable
+          v-slot="{ row: commission }"
+          :headings="headings"
+          :rows="commissions"
+        >
+          <td>{{ commission.name }}</td>
+          <td>{{ commission.email }}</td>
+          <td class="font-medium">
+            {{ formatNaira(Number(commission.amount)) }}
+          </td>
+          <td>
+            <span
+              :class="[
+                'inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold',
+                isPaid(commission)
+                  ? 'bg-green-500/10 text-green-700 dark:text-green-400'
+                  : 'bg-amber-500/10 text-amber-700 dark:text-amber-400',
+              ]"
+            >
+              {{ isPaid(commission) ? 'Paid' : 'Not paid' }}
+            </span>
+          </td>
         </UiTable>
       </div>
     </div>
@@ -71,7 +61,7 @@ import { Wallet } from '@lucide/vue'
 import type { Commission } from '@/types/referral'
 import { apiClient } from '@/repository/api'
 
-const headings = ['', 'Name', 'Email', 'Amount', 'Status']
+const headings = ['Name', 'Email', 'Amount', 'Status']
 const commissions = ref<Commission[] | null>(null)
 const loading = ref(true)
 const error = ref(false)

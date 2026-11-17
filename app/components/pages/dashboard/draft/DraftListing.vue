@@ -38,71 +38,59 @@
           loading && 'pointer-events-none opacity-60',
         ]"
       >
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="(heading, index) in headings" :key="index">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow
-              v-for="row in rows"
-              :key="row.draft.id"
-              class="cursor-pointer"
-              @click="viewDraft(row.draft)"
+        <UiTable
+          v-slot="{ row }"
+          :headings="headings"
+          :rows="rows"
+          :per-page="perPage"
+          :current-page="currentPage"
+          @row-click="(row) => viewDraft(row.draft)"
+        >
+          <td class="font-medium">
+            {{ row.draft.displayname || '—' }}
+          </td>
+          <td class="tabular-nums">
+            <template v-if="row.recipients.length">
+              {{ row.recipients[0] }}
+              <span
+                v-if="row.recipients.length > 1"
+                class="text-muted-foreground block text-xs"
+              >
+                +{{ formatNumberWithComma(row.recipients.length - 1) }}
+                more
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td>
+            <span class="block max-w-64 truncate">
+              {{ row.draft.message || '—' }}
+            </span>
+          </td>
+          <td>
+            <template v-if="row.savedOn">
+              {{ row.savedOn.date }}
+              <span class="text-muted-foreground block text-xs">
+                {{ row.savedOn.time }}
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td class="w-16" @click.stop>
+            <UiDropdownMenu
+              :items="menuItems"
+              placement="end"
+              @select="onSelect($event, row.draft)"
             >
-              <TableCell class="text-muted-foreground w-12">
-                {{ row.number }}.
-              </TableCell>
-              <TableCell class="font-medium">
-                {{ row.draft.displayname || '—' }}
-              </TableCell>
-              <TableCell class="tabular-nums">
-                <template v-if="row.recipients.length">
-                  {{ row.recipients[0] }}
-                  <span
-                    v-if="row.recipients.length > 1"
-                    class="text-muted-foreground block text-xs"
-                  >
-                    +{{ formatNumberWithComma(row.recipients.length - 1) }}
-                    more
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell>
-                <span class="block max-w-64 truncate">
-                  {{ row.draft.message || '—' }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <template v-if="row.savedOn">
-                  {{ row.savedOn.date }}
-                  <span class="text-muted-foreground block text-xs">
-                    {{ row.savedOn.time }}
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell class="w-16" @click.stop>
-                <UiDropdownMenu
-                  :items="menuItems"
-                  placement="end"
-                  @select="onSelect($event, row.draft)"
-                >
-                  <button
-                    type="button"
-                    aria-label="Draft actions"
-                    class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3"
-                  >
-                    <EllipsisIcon class="size-4" />
-                  </button>
-                </UiDropdownMenu>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+              <button
+                type="button"
+                aria-label="Draft actions"
+                class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3"
+              >
+                <EllipsisIcon class="size-4" />
+              </button>
+            </UiDropdownMenu>
+          </td>
         </UiTable>
 
         <UiPagination
@@ -145,7 +133,7 @@ import type {
   DropdownMenuItem,
 } from '@/components/ui/UiDropdownMenu.vue'
 
-const headings = ['', 'Sender Name', 'Recipients', 'Message', 'Saved on', '']
+const headings = ['Sender Name', 'Recipients', 'Message', 'Saved on', '']
 const menuItems: DropdownMenuItem[] = [
   { id: 'view', label: 'View details', icon: EyeIcon },
   { id: 'edit', label: 'Edit & send', icon: PencilIcon },
@@ -179,9 +167,9 @@ const savedOn = (value: string | null | undefined) =>
 const rows = computed(() =>
   [...(drafts.value ?? [])]
     .sort((a, b) => (b.created ?? '').localeCompare(a.created ?? ''))
-    .map((draft, index) => ({
+    .map((draft) => ({
+      id: draft.id,
       draft,
-      number: incrementPageNumber(index, perPage.value, currentPage.value),
       recipients: splitRecipients(draft.recipient),
       savedOn: savedOn(draft.created),
     })),

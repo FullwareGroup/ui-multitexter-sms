@@ -38,34 +38,26 @@
           loading && 'pointer-events-none opacity-60',
         ]"
       >
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="(heading, index) in headings" :key="index">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="row in rows" :key="row.message.id">
-              <TableCell class="text-muted-foreground w-12">
-                {{ row.number }}.
-              </TableCell>
-              <TableCell>
-                <QueuedStatusBadge :completed="row.completed" />
-              </TableCell>
-              <TableCell>
-                <span
-                  class="block max-w-96 min-w-48 font-medium break-all whitespace-normal"
-                >
-                  {{ row.message.remotemsgids || '—' }}
-                </span>
-              </TableCell>
-              <TableCell class="tabular-nums">
-                {{ formatNumberWithComma(row.left) }}
-              </TableCell>
-            </TableRow>
-          </TableBody>
+        <UiTable
+          v-slot="{ row }"
+          :headings="headings"
+          :rows="rows"
+          :per-page="perPage"
+          :current-page="currentPage"
+        >
+          <td>
+            <QueuedStatusBadge :completed="row.completed" />
+          </td>
+          <td>
+            <span
+              class="block max-w-96 min-w-48 font-medium break-all whitespace-normal"
+            >
+              {{ row.message.remotemsgids || '—' }}
+            </span>
+          </td>
+          <td class="tabular-nums">
+            {{ formatNumberWithComma(row.left) }}
+          </td>
         </UiTable>
 
         <UiPagination
@@ -86,7 +78,7 @@ import { HourglassIcon, SendIcon } from '@lucide/vue'
 import { apiClient } from '@/repository/api'
 import type { QueuedSMS } from '@/types/message'
 
-const headings = ['', 'Status', 'Queue ID', 'Messages Left']
+const headings = ['Status', 'Queue ID', 'Messages Left']
 
 const messages = ref<QueuedSMS[] | null>(null)
 const loading = ref(true)
@@ -100,11 +92,11 @@ const totalPages = computed(() =>
 )
 
 const rows = computed(() =>
-  (messages.value ?? []).map((message, index) => {
+  (messages.value ?? []).map((message) => {
     const left = Number(message.total_left) || 0
     return {
+      id: message.id,
       message,
-      number: incrementPageNumber(index, perPage.value, currentPage.value),
       left,
       completed: left === 0,
     }

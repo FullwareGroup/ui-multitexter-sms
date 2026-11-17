@@ -38,68 +38,56 @@
           loading && 'pointer-events-none opacity-60',
         ]"
       >
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="heading in headings" :key="heading">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow
-              v-for="row in rows"
-              :key="row.list.contactlistid"
-              class="cursor-pointer"
-              @click="openList(row.list)"
+        <UiTable
+          v-slot="{ row }"
+          :headings="headings"
+          :rows="rows"
+          :per-page="perPage"
+          :current-page="currentPage"
+          @row-click="(row) => openList(row.list)"
+        >
+          <td>
+            <span class="font-medium">
+              {{ row.list.contactist_name }}
+            </span>
+            <span
+              v-if="row.list.description"
+              class="text-muted-foreground block max-w-xs truncate text-xs"
             >
-              <TableCell class="text-muted-foreground w-12">
-                {{ row.number }}.
-              </TableCell>
-              <TableCell>
-                <span class="font-medium">
-                  {{ row.list.contactist_name }}
-                </span>
-                <span
-                  v-if="row.list.description"
-                  class="text-muted-foreground block max-w-xs truncate text-xs"
-                >
-                  {{ row.list.description }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <span
-                  class="bg-primary/10 text-primary inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold"
-                >
-                  {{ formatNumberWithComma(row.list.contactCount) }}
-                </span>
-              </TableCell>
-              <TableCell>
-                <template v-if="row.created">
-                  {{ row.created.date }}
-                  <span class="text-muted-foreground block text-xs">
-                    {{ row.created.time }}
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell class="w-16" @click.stop>
-                <UiDropdownMenu
-                  :items="menuItems"
-                  placement="end"
-                  @select="onSelect($event, row.list)"
-                >
-                  <button
-                    type="button"
-                    :aria-label="`Actions for ${row.list.contactist_name}`"
-                    class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3"
-                  >
-                    <EllipsisIcon class="size-4" />
-                  </button>
-                </UiDropdownMenu>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+              {{ row.list.description }}
+            </span>
+          </td>
+          <td>
+            <span
+              class="bg-primary/10 text-primary inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold"
+            >
+              {{ formatNumberWithComma(row.list.contactCount) }}
+            </span>
+          </td>
+          <td>
+            <template v-if="row.created">
+              {{ row.created.date }}
+              <span class="text-muted-foreground block text-xs">
+                {{ row.created.time }}
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td class="w-16" @click.stop>
+            <UiDropdownMenu
+              :items="menuItems"
+              placement="end"
+              @select="onSelect($event, row.list)"
+            >
+              <button
+                type="button"
+                :aria-label="`Actions for ${row.list.contactist_name}`"
+                class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3"
+              >
+                <EllipsisIcon class="size-4" />
+              </button>
+            </UiDropdownMenu>
+          </td>
         </UiTable>
 
         <UiPagination
@@ -142,7 +130,7 @@ import type {
   DropdownMenuItem,
 } from '@/components/ui/UiDropdownMenu.vue'
 
-const headings = ['', 'Name', 'Contacts', 'Created', 'Action']
+const headings = ['Name', 'Contacts', 'Created', 'Action']
 const menuItems: DropdownMenuItem[] = [
   { id: 'open', label: 'View contacts', icon: EyeIcon },
   { id: 'edit', label: 'Edit', icon: PencilIcon },
@@ -166,9 +154,9 @@ const totalPages = computed(() =>
 )
 
 const rows = computed(() =>
-  (lists.value ?? []).map((list, index) => ({
+  (lists.value ?? []).map((list) => ({
+    id: list.contactlistid,
     list,
-    number: incrementPageNumber(index, perPage.value, currentPage.value),
     created: list.created
       ? {
           date: useDateFormat(list.created, 'Do MMM YYYY').value,

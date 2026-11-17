@@ -38,77 +38,65 @@
           loading && 'pointer-events-none opacity-60',
         ]"
       >
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="(heading, index) in headings" :key="index">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow
-              v-for="row in rows"
-              :key="row.message.id"
-              class="cursor-pointer"
-              @click="viewMessage(row.message)"
+        <UiTable
+          v-slot="{ row }"
+          :headings="headings"
+          :rows="rows"
+          :per-page="perPage"
+          :current-page="currentPage"
+          @row-click="(row) => viewMessage(row.message)"
+        >
+          <td class="font-medium">
+            {{ row.message.sender_name || '—' }}
+          </td>
+          <td class="tabular-nums">
+            <template v-if="row.recipients.length">
+              {{ row.recipients[0] }}
+              <span
+                v-if="row.recipients.length > 1"
+                class="text-muted-foreground block text-xs"
+              >
+                +{{ formatNumberWithComma(row.recipients.length - 1) }}
+                more
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td>
+            <span class="block max-w-64 truncate">
+              {{ row.message.content || '—' }}
+            </span>
+          </td>
+          <td class="tabular-nums">
+            {{ formatNumberWithComma(row.message.volume) }}
+          </td>
+          <td>
+            <template v-if="row.sentOn">
+              {{ row.sentOn.date }}
+              <span class="text-muted-foreground block text-xs">
+                {{ row.sentOn.time }}
+              </span>
+            </template>
+            <span v-else class="text-muted-foreground">—</span>
+          </td>
+          <td>
+            <ReportStatusBadge :status="row.message.status" />
+          </td>
+          <td class="w-16" @click.stop>
+            <UiDropdownMenu
+              :items="menuItems"
+              placement="end"
+              @select="onSelect($event, row.message)"
             >
-              <TableCell class="text-muted-foreground w-12">
-                {{ row.number }}.
-              </TableCell>
-              <TableCell class="font-medium">
-                {{ row.message.sender_name || '—' }}
-              </TableCell>
-              <TableCell class="tabular-nums">
-                <template v-if="row.recipients.length">
-                  {{ row.recipients[0] }}
-                  <span
-                    v-if="row.recipients.length > 1"
-                    class="text-muted-foreground block text-xs"
-                  >
-                    +{{ formatNumberWithComma(row.recipients.length - 1) }}
-                    more
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell>
-                <span class="block max-w-64 truncate">
-                  {{ row.message.content || '—' }}
-                </span>
-              </TableCell>
-              <TableCell class="tabular-nums">
-                {{ formatNumberWithComma(row.message.volume) }}
-              </TableCell>
-              <TableCell>
-                <template v-if="row.sentOn">
-                  {{ row.sentOn.date }}
-                  <span class="text-muted-foreground block text-xs">
-                    {{ row.sentOn.time }}
-                  </span>
-                </template>
-                <span v-else class="text-muted-foreground">—</span>
-              </TableCell>
-              <TableCell>
-                <ReportStatusBadge :status="row.message.status" />
-              </TableCell>
-              <TableCell class="w-16" @click.stop>
-                <UiDropdownMenu
-                  :items="menuItems"
-                  placement="end"
-                  @select="onSelect($event, row.message)"
-                >
-                  <button
-                    type="button"
-                    aria-label="Message actions"
-                    class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3"
-                  >
-                    <EllipsisIcon class="size-4" />
-                  </button>
-                </UiDropdownMenu>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+              <button
+                type="button"
+                aria-label="Message actions"
+                class="border-border text-muted-foreground hover:bg-foreground/5 hover:text-foreground focus-visible:ring-primary/35 inline-flex size-8 cursor-pointer items-center justify-center rounded-lg border transition-colors outline-none focus-visible:ring-3"
+              >
+                <EllipsisIcon class="size-4" />
+              </button>
+            </UiDropdownMenu>
+          </td>
         </UiTable>
 
         <UiPagination
@@ -152,7 +140,6 @@ import type {
 } from '@/components/ui/UiDropdownMenu.vue'
 
 const headings = [
-  '',
   'Sender Name',
   'Recipients',
   'Message',
@@ -192,9 +179,9 @@ const sentOn = (value: string | null | undefined) =>
       }
 
 const rows = computed(() =>
-  (messages.value ?? []).map((message, index) => ({
+  (messages.value ?? []).map((message) => ({
+    id: message.id,
     message,
-    number: incrementPageNumber(index, perPage.value, currentPage.value),
     recipients: splitRecipients(message.recipient),
     sentOn: sentOn(message.disptachtime),
   })),

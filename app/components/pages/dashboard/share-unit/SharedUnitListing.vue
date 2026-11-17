@@ -28,34 +28,20 @@
       />
 
       <div v-else class="border-border overflow-hidden rounded-lg border">
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="heading in headings" :key="heading">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="(share, index) in rows" :key="index">
-              <TableCell class="text-muted-foreground w-12">
-                {{ index + 1 }}.
-              </TableCell>
-              <TableCell>{{ share.recipient || '—' }}</TableCell>
-              <TableCell class="font-medium">
-                {{ formatNumberWithComma(share.amount) }}
-              </TableCell>
-              <TableCell>
-                {{ share.sharedAt.date }}
-                <span
-                  v-if="share.sharedAt.time"
-                  class="text-muted-foreground block text-xs"
-                >
-                  {{ share.sharedAt.time }}
-                </span>
-              </TableCell>
-            </TableRow>
-          </TableBody>
+        <UiTable v-slot="{ row: share }" :headings="headings" :rows="rows">
+          <td>{{ share.recipient || '—' }}</td>
+          <td class="font-medium">
+            {{ formatNumberWithComma(share.amount) }}
+          </td>
+          <td>
+            {{ share.sharedAt.date }}
+            <span
+              v-if="share.sharedAt.time"
+              class="text-muted-foreground block text-xs"
+            >
+              {{ share.sharedAt.time }}
+            </span>
+          </td>
         </UiTable>
       </div>
     </div>
@@ -65,7 +51,7 @@
 <script setup lang="ts">
 import { Share2 } from '@lucide/vue'
 
-const headings = ['', 'Recipient', 'Units', 'Date']
+const headings = ['Recipient', 'Units', 'Date']
 
 const { shares, error, fetchSharedUnits } = useSharedUnits()
 

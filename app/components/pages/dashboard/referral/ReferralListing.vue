@@ -28,23 +28,13 @@
       />
 
       <div v-else class="border-border overflow-hidden rounded-lg border">
-        <UiTable>
-          <TableHeader>
-            <TableRow>
-              <TableHead v-for="heading in headings" :key="heading">
-                {{ heading }}
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="(referral, index) in referrals" :key="index">
-              <TableCell class="text-muted-foreground w-12">
-                {{ index + 1 }}.
-              </TableCell>
-              <TableCell>{{ referral.email }}</TableCell>
-              <TableCell>{{ referral.name }}</TableCell>
-            </TableRow>
-          </TableBody>
+        <UiTable
+          v-slot="{ row: referral }"
+          :headings="headings"
+          :rows="referrals"
+        >
+          <td>{{ referral.email }}</td>
+          <td>{{ referral.name }}</td>
         </UiTable>
       </div>
     </div>
@@ -56,7 +46,7 @@ import { Users } from '@lucide/vue'
 import type { Referral } from '@/types/referral'
 import { apiClient } from '@/repository/api'
 
-const headings = ['', 'Referred', 'Name']
+const headings = ['Referred', 'Name']
 const referrals = ref<Referral[] | null>(null)
 const loading = ref(true)
 const error = ref(false)
