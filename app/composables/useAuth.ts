@@ -4,7 +4,6 @@ import { COOKIE_NAMES } from '@/repository/constant'
 
 export default function useAuth() {
   const { user, userDetail } = storeToRefs(useUserStore())
-  const { draft: quickCompose } = useQuickCompose()
 
   const persistSession = (response: LoginRes) => {
     // Check for last visit, capture it, then clear the cookie
@@ -18,7 +17,7 @@ export default function useAuth() {
 
     fetchUserDetails(response.token)
 
-    if (redirectTo && !quickCompose.value) {
+    if (redirectTo) {
       return navigateTo(redirectTo)
     }
     return navigateTo('/dashboard/compose-sms')

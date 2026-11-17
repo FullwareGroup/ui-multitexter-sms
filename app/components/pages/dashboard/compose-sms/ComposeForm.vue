@@ -63,7 +63,7 @@
           <UiTextarea
             v-model="recipients"
             name="recipients"
-            label="Recipients"
+            label="Type a number"
             :rows="5"
             placeholder="e.g. 08012345678, 2348098765432"
             :error="errors.recipients"

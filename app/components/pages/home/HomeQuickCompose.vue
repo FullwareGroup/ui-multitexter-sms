@@ -24,16 +24,16 @@
         <UiInput
           id="compose-recipients"
           v-model="recipients"
-          label="Recipients"
+          label="Type a number"
           name="recipients"
-          placeholder="Numbers (e.g. 08152425262,2347047373872)"
+          placeholder="e.g. 08152425262,2347047373872"
           autocomplete="off"
           class="mt-2"
           @keypress="isNumber"
           @blur="formatRecipients"
         />
         <p class="text-muted-foreground mt-2 text-xs">
-          Recipients:
+          Numbers:
           <strong class="text-foreground font-semibold tabular-nums">
             {{ formatNumberWithComma(totalRecipients) }}
           </strong>
