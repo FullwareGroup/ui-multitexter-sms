@@ -191,7 +191,7 @@ const onSubmit = handleSubmit(async (values) => {
         persistSession(result)
       }
     } else if (response.status === -2) {
-      errorMessage.value = response.data.msg
+      errorMessage.value = response.msg
         .split('.')
         .map((msg) => msg.trim())
         .filter(Boolean)

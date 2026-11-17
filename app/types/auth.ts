@@ -28,11 +28,9 @@ export interface SignUpReq {
 }
 
 export interface SignUpRes {
-  data: {
-    code: string
-    msg: string
-    token: string
-  }
+  code: string
+  msg: string
+  token: string
   status: number
 }
 
