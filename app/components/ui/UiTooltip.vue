@@ -16,7 +16,7 @@
       v-bind="tooltipAttrs"
       popover="manual"
       role="tooltip"
-      :class="[tooltipClasses, attrs.class]"
+      :class="[tooltipClasses, !open && 'hidden', attrs.class]"
       :style="{ maxWidth: toCss(maxWidth) }"
     >
       <slot name="content">{{ content }}</slot>
@@ -241,7 +241,7 @@ watch(
     if (!tooltip) return
     if (isOpen) {
       describe()
-      if (!tooltip.matches(':popover-open')) tooltip.showPopover()
+      openPopover(tooltip)
       position()
       window.addEventListener('scroll', position, {
         capture: true,
@@ -250,7 +250,7 @@ watch(
       window.addEventListener('resize', position)
       document.addEventListener('keydown', onKeydown)
     } else {
-      if (tooltip.matches(':popover-open')) tooltip.hidePopover()
+      closePopover(tooltip)
       stopTracking()
     }
   },
@@ -263,7 +263,7 @@ onBeforeUnmount(() => {
 })
 
 const tooltipClasses =
-  'inset-auto m-0 overflow-visible rounded-md border-0 bg-foreground px-2.5 py-1.5 ' +
+  'fixed inset-auto z-60 m-0 overflow-visible rounded-md border-0 bg-foreground px-2.5 py-1.5 ' +
   'text-left text-xs leading-snug font-medium break-words text-background shadow-md ' +
   'transition-opacity duration-150 starting:opacity-0 motion-reduce:transition-none'
 </script>

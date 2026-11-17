@@ -534,7 +534,7 @@ watch(
     const popover = popoverEl.value
     if (!popover) return
     if (isOpen) {
-      if (!popover.matches(':popover-open')) popover.showPopover()
+      openPopover(popover)
       position()
       searchEl.value?.focus({ preventScroll: true })
       scrollToActive()
@@ -544,7 +544,7 @@ watch(
       })
       window.addEventListener('resize', position)
     } else {
-      if (popover.matches(':popover-open')) popover.hidePopover()
+      closePopover(popover)
       stopTracking()
     }
   },
@@ -657,8 +657,9 @@ const triggerClasses = computed(() => {
 })
 
 const popoverClasses = computed(() => [
-  'inset-auto m-0 max-h-72 flex-col overflow-hidden border border-border bg-surface p-0 text-foreground shadow-lg outline-none open:flex dark:scheme-dark ' +
+  'fixed inset-auto z-60 m-0 max-h-72 flex-col overflow-hidden border border-border bg-surface p-0 text-foreground shadow-lg outline-none dark:scheme-dark ' +
     'transition-opacity duration-150 starting:opacity-0 motion-reduce:transition-none',
+  open.value ? 'flex' : 'hidden',
   props.radius === 'full' ? 'rounded-lg' : radii[props.radius],
 ])
 

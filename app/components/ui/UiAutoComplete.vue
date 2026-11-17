@@ -313,7 +313,7 @@ watch(
     const popover = popoverEl.value
     if (!popover) return
     if (isExpanded) {
-      if (!popover.matches(':popover-open')) popover.showPopover()
+      openPopover(popover)
       position()
       window.addEventListener('scroll', onScroll, {
         capture: true,
@@ -321,7 +321,7 @@ watch(
       })
       window.addEventListener('resize', position)
     } else {
-      if (popover.matches(':popover-open')) popover.hidePopover()
+      closePopover(popover)
       stopTracking()
     }
   },
@@ -400,8 +400,9 @@ const controlClasses = computed(() => {
 })
 
 const popoverClasses = computed(() => [
-  'inset-auto m-0 max-h-72 flex-col overflow-hidden border border-border bg-surface p-0 text-foreground shadow-lg outline-none open:flex dark:scheme-dark ' +
+  'fixed inset-auto z-60 m-0 max-h-72 flex-col overflow-hidden border border-border bg-surface p-0 text-foreground shadow-lg outline-none dark:scheme-dark ' +
     'transition-opacity duration-150 starting:opacity-0 motion-reduce:transition-none',
+  expanded.value ? 'flex' : 'hidden',
   props.radius === 'full' ? 'rounded-lg' : radii[props.radius],
 ])
 

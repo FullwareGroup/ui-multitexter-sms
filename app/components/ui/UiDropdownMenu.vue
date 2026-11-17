@@ -15,7 +15,7 @@
       popover="manual"
       role="menu"
       tabindex="-1"
-      :class="[menuClasses, attrs.class]"
+      :class="[menuClasses, !open && 'hidden', attrs.class]"
       @keydown="onMenuKeydown"
       @mousedown.prevent
     >
@@ -366,7 +366,7 @@ const sync = (isOpen: boolean) => {
   if (!menu) return
   wire()
   if (isOpen) {
-    if (!menu.matches(':popover-open')) menu.showPopover()
+    openPopover(menu)
     position()
     focusInto(focusOnOpen)
     focusOnOpen = 'menu'
@@ -377,7 +377,7 @@ const sync = (isOpen: boolean) => {
     window.addEventListener('resize', position)
   } else {
     returnFocus()
-    if (menu.matches(':popover-open')) menu.hidePopover()
+    closePopover(menu)
     stopTracking()
   }
 }
@@ -386,13 +386,13 @@ onMounted(() => sync(open.value))
 watch(open, sync, { flush: 'post' })
 
 onBeforeUnmount(() => {
-  if (menuEl.value?.matches(':popover-open')) menuEl.value.hidePopover()
+  if (menuEl.value) closePopover(menuEl.value)
   stopTracking()
   clearTimeout(searchTimer)
 })
 
 const menuClasses =
-  'inset-auto m-0 w-max min-w-48 max-w-[min(20rem,calc(100vw_-_1rem))] overflow-y-auto overscroll-contain ' +
+  'fixed inset-auto z-60 m-0 w-max min-w-48 max-w-[min(20rem,calc(100vw_-_1rem))] overflow-y-auto overscroll-contain ' +
   'rounded-lg border border-border bg-surface p-1 text-foreground shadow-lg outline-none ' +
   'transition-opacity duration-150 starting:opacity-0 motion-reduce:transition-none dark:scheme-dark'
 
