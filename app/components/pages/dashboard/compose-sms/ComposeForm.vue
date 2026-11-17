@@ -171,12 +171,16 @@
             />
           </div>
 
-          <UiCheckbox
-            v-model="priorityRoute"
-            name="priorityRoute"
-            label="Use the priority route"
-            hint="Reaches MTN numbers on Do Not Disturb (DND). MTN messages cost 2 units per page."
-          />
+          <UiCheckbox v-model="priorityRoute" name="priorityRoute">
+            Priority Route: Override DND For more info
+            <NuxtLink
+              to="/network-status"
+              target="_blank"
+              class="text-primary hover:text-primary/80 focus-visible:ring-primary/35 rounded-sm font-medium transition-colors outline-none focus-visible:ring-2"
+            >
+              View network status
+            </NuxtLink>
+          </UiCheckbox>
         </div>
       </div>
 
