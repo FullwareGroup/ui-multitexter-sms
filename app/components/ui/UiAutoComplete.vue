@@ -279,12 +279,13 @@ const position = () => {
     MAX_HEIGHT,
   )
   const flip = height > below && above > below
+  const offset = fixedOffset(popover)
   popoverStyle.value = {
-    left: `${rect.left}px`,
+    left: `${rect.left - offset.x}px`,
     width: `${rect.width}px`,
     maxHeight: `${Math.min(MAX_HEIGHT, flip ? above : below)}px`,
-    top: flip ? 'auto' : `${rect.bottom + GAP}px`,
-    bottom: flip ? `${viewport - rect.top + GAP}px` : 'auto',
+    top: flip ? 'auto' : `${rect.bottom + GAP - offset.y}px`,
+    bottom: flip ? `${viewport - rect.top + GAP - offset.bottom}px` : 'auto',
   }
 }
 

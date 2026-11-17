@@ -207,8 +207,9 @@ function position() {
     vh - height - EDGE,
   )
 
-  tooltip.style.left = `${x}px`
-  tooltip.style.top = `${y}px`
+  const offset = fixedOffset(tooltip)
+  tooltip.style.left = `${x - offset.x}px`
+  tooltip.style.top = `${y - offset.y}px`
   side.value = placed
   // Kept clear of the rounded corners.
   arrowOffset.value = vertical

@@ -343,11 +343,12 @@ const position = () => {
   const rtl = getComputedStyle(anchor).direction === 'rtl'
   const alignEnd = props.placement.endsWith('end') !== rtl
   const x = alignEnd ? rect.right - width : rect.left
+  const offset = fixedOffset(menu)
 
   Object.assign(menu.style, {
-    left: `${Math.max(EDGE, Math.min(x, vw - width - EDGE))}px`,
-    top: up ? 'auto' : `${rect.bottom + GAP}px`,
-    bottom: up ? `${vh - rect.top + GAP}px` : 'auto',
+    left: `${Math.max(EDGE, Math.min(x, vw - width - EDGE)) - offset.x}px`,
+    top: up ? 'auto' : `${rect.bottom + GAP - offset.y}px`,
+    bottom: up ? `${vh - rect.top + GAP - offset.bottom}px` : 'auto',
     maxHeight: `${up ? above : below}px`,
   })
 }
