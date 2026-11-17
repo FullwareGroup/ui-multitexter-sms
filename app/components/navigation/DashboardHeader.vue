@@ -1,6 +1,6 @@
 <template>
   <header
-    class="border-border bg-background/50 sticky top-0 z-40 h-16 w-full border-b backdrop-blur-lg backdrop-saturate-180"
+    class="border-border bg-background/50 sticky top-0 z-40 w-full border-b backdrop-blur-lg backdrop-saturate-180"
   >
     <div class="dashboard-wrapper">
       <div class="flex h-16 w-full items-center justify-between gap-3">
@@ -35,6 +35,7 @@
         </div>
       </div>
     </div>
+    <UiNetworkStatus />
   </header>
 </template>
 
