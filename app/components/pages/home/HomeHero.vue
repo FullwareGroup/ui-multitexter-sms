@@ -38,25 +38,6 @@
           Reach thousands of people on any network in Nigeria with one click, at
           one unit per SMS, with instant delivery reports.
         </p>
-
-        <div
-          v-motion-fade-visible-once
-          :delay="450"
-          class="border-border mt-10 flex flex-wrap gap-x-10 gap-y-6 border-t pt-8"
-        >
-          <div
-            v-for="stat in stats"
-            :key="stat.value"
-            class="flex flex-col-reverse"
-          >
-            <dt class="text-muted-foreground mt-1 text-sm">
-              {{ stat.label }}
-            </dt>
-            <dd class="text-2xl font-semibold tracking-tight sm:text-3xl">
-              {{ stat.value }}
-            </dd>
-          </div>
-        </div>
       </div>
 
       <div v-motion-slide-visible-once-right :delay="250">
@@ -66,9 +47,4 @@
   </section>
 </template>
 
-<script setup lang="ts">
-const stats = [
-  { value: '1 unit', label: 'per SMS, any network' },
-  { value: 'Tier 1', label: 'delivery routes' },
-]
-</script>
+<script setup lang="ts"></script>
