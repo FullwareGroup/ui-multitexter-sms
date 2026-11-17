@@ -45,26 +45,9 @@
           <p
             class="mt-5 hidden leading-relaxed text-pretty text-white/60 md:block"
           >
-            Bulk SMS at one unit per message, with instant delivery reports on
-            every send.
+            Send your bulk sms message, with instant delivery reports on every
+            send.
           </p>
-
-          <div class="mt-10 hidden justify-center gap-2 md:flex lg:gap-10">
-            <div
-              v-for="stat in stats"
-              :key="stat.label"
-              class="flex flex-col-reverse"
-            >
-              <div
-                class="mt-1 text-[11px] font-medium tracking-wider text-white/50 uppercase"
-              >
-                {{ stat.label }}
-              </div>
-              <div class="text-primary text-2xl font-semibold tracking-tight">
-                {{ stat.value }}
-              </div>
-            </div>
-          </div>
         </div>
       </aside>
 
@@ -82,11 +65,5 @@ const lines = [
   'top-[18%] right-0 w-2/5 bg-linear-to-l',
   'top-1/2 left-0 w-1/3 bg-linear-to-r',
   'top-[66%] right-0 w-1/2 bg-linear-to-l',
-]
-
-const stats = [
-  { value: '1 unit', label: 'Per SMS' },
-  { value: 'Tier 1', label: 'Delivery routes' },
-  { value: 'Instant', label: 'Reports' },
 ]
 </script>

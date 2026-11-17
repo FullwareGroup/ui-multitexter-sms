@@ -53,42 +53,10 @@
           <ArrowRight class="size-4" />
         </NuxtLink>
       </div>
-
-      <dl
-        v-if="stats.length"
-        v-motion-fade-visible-once
-        :delay="550"
-        class="mt-12 flex flex-wrap gap-x-12 gap-y-6"
-      >
-        <div
-          v-for="stat in stats"
-          :key="stat.label"
-          class="flex flex-col-reverse"
-        >
-          <dt class="text-muted-foreground mt-1 text-sm">{{ stat.label }}</dt>
-          <dd class="text-3xl font-semibold tracking-tight tabular-nums">
-            {{ stat.value }}
-          </dd>
-        </div>
-      </dl>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { ArrowRight, Calculator } from '@lucide/vue'
-
-const { prices } = usePricing()
-
-const stats = computed(() => {
-  if (!prices.value?.length) return []
-
-  const lowest = Math.min(...prices.value.map(({ price }) => price))
-
-  return [
-    { label: 'Lowest price per unit', value: `₦${lowest.toFixed(2)}` },
-    { label: 'Volume tiers', value: prices.value.length },
-    { label: 'Units you can buy', value: 'No limit' },
-  ]
-})
 </script>

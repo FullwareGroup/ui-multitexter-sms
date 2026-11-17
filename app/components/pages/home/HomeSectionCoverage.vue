@@ -23,8 +23,8 @@
           class="text-muted-foreground mt-5 max-w-xl text-base leading-relaxed"
         >
           MultiTexter provides the smartest, fastest and most reliable means of
-          sending text messages in Nigeria and across Africa; reaching thousands
-          of people with just one click with instant delivery report.
+          sending text messages in Nigeria reaching thousands of people with
+          just one click with instant delivery report.
         </p>
         <div v-motion-fade-visible-once :delay="450" class="mt-8">
           <NuxtLink
@@ -48,7 +48,6 @@
           class="text-dark-blue absolute inset-x-3 bottom-3 flex flex-wrap items-center gap-x-5 gap-y-1 rounded-2xl bg-white/85 px-4 py-3 text-sm font-semibold backdrop-blur-md sm:inset-x-4 sm:bottom-4 sm:gap-x-6"
         >
           <li v-for="network in networks" :key="network">{{ network }}</li>
-          <li class="text-sky-600">Africa-wide</li>
         </ul>
       </div>
     </div>
