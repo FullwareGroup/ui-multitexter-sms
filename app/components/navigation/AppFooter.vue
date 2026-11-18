@@ -2,7 +2,7 @@
   <footer class="border-border relative isolate overflow-hidden border-t">
     <div
       aria-hidden="true"
-      class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle,var(--grid-dot)_1px,transparent_1.5px)] bg-size-[20px_20px] [--grid-dot:rgb(0_0_0/0.22)] dark:[--grid-dot:rgb(255_255_255/0.18)]"
+      class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle,rgb(216_203_179/0.14)_1px,transparent_1.5px)] bg-size-[20px_20px]"
     />
 
     <div class="wrapper pt-16 pb-14">
@@ -40,7 +40,7 @@
             <li v-for="resource in resources" :key="resource.link">
               <NuxtLink
                 :to="resource.link"
-                class="text-muted-foreground text-sm transition-colors hover:text-black dark:hover:text-white"
+                class="text-muted-foreground hover:text-foreground text-sm transition-colors"
               >
                 {{ resource.name }}
               </NuxtLink>
@@ -54,7 +54,7 @@
             <li v-for="link in quickLinks" :key="link.link">
               <NuxtLink
                 :to="link.link"
-                class="text-muted-foreground text-sm transition-colors hover:text-black dark:hover:text-white"
+                class="text-muted-foreground hover:text-foreground text-sm transition-colors"
               >
                 {{ link.name }}
               </NuxtLink>
@@ -71,7 +71,7 @@
           </address>
           <a
             href="mailto:info@multitexter.com"
-            class="mt-3 block text-sm text-sky-400 hover:text-sky-300"
+            class="text-primary mt-3 block text-sm hover:text-sky-300"
           >
             info@multitexter.com
           </a>

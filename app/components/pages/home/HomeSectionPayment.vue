@@ -19,7 +19,7 @@
         <li
           v-motion-fade-visible-once
           :delay="methods.length * 75"
-          class="bg-dark-blue col-span-full flex min-h-15 items-center rounded-lg border border-white/10 px-5 py-4 text-sm text-white"
+          class="bg-sand text-charcoal col-span-full flex min-h-15 items-center rounded-lg px-5 py-4 text-sm font-medium"
         >
           Providus Bank
         </li>

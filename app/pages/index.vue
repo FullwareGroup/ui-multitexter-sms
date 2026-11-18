@@ -1,11 +1,11 @@
 <template>
   <div class="divide-border divide-y">
     <HomeHero />
+    <HomeSectionClients />
     <HomeSectionWhy />
     <HomeSectionCoverage />
     <HomeSectionPayment />
     <HomeSectionOneTime />
-    <HomeSectionClients />
     <HomeSectionTestimonials />
     <HomeSectionReferral />
   </div>

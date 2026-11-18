@@ -8,7 +8,9 @@
       <Teleport :to="toastHost">
         <Toaster
           position="top-right"
-          :theme="colorMode.value === 'dark' ? 'dark' : 'light'"
+          :theme="
+            isBrandLayout || colorMode.value === 'dark' ? 'dark' : 'light'
+          "
           rich-colors
         />
       </Teleport>
@@ -23,6 +25,8 @@ const site = useSiteConfig()
 const { isLoggedIn } = storeToRefs(useUserStore())
 const { fetchUserDetails } = useAuth()
 const { top: topModal } = useModalStack()
+
+const isBrandLayout = computed(() => route.meta.layout !== 'dashboard')
 
 const toastHost = computed(() =>
   topModal.value ? `dialog[data-ui-modal="${topModal.value}"]` : '#teleports',

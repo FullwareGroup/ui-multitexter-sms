@@ -62,7 +62,7 @@
         <span
           :key="status"
           :class="[
-            'bg-surface border-border relative flex size-16 items-center justify-center rounded-2xl border shadow-lg shadow-black/5',
+            'bg-surface border-border relative flex size-16 items-center justify-center rounded-2xl border shadow-lg shadow-black/30',
             iconColor,
           ]"
         >

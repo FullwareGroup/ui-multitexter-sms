@@ -75,7 +75,7 @@
         <NuxtImg
           :src="post.featured_image_url"
           :alt="post.title"
-          class="border-border bg-surface aspect-video w-full rounded-3xl border object-cover shadow-2xl shadow-black/10"
+          class="border-border bg-surface aspect-video w-full rounded-3xl border object-cover shadow-2xl shadow-black/40"
         />
       </div>
 
@@ -86,7 +86,7 @@
       >
         <!-- eslint-disable vue/no-v-html -->
         <div
-          class="post-content prose prose-neutral dark:prose-invert sm:prose-lg prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary prose-a:font-medium prose-a:no-underline prose-a:wrap-break-word prose-a:hover:underline prose-strong:text-foreground prose-img:rounded-2xl prose-img:border prose-img:border-border prose-pre:bg-dark-blue prose-pre:rounded-2xl prose-pre:border prose-pre:border-white/10 prose-blockquote:border-l-primary prose-hr:border-border max-w-none"
+          class="post-content prose sm:prose-lg prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary prose-a:font-medium prose-a:no-underline prose-a:wrap-break-word prose-a:hover:underline prose-strong:text-foreground prose-img:rounded-2xl prose-img:border prose-img:border-border prose-pre:bg-ink prose-pre:rounded-2xl prose-pre:border prose-pre:border-border prose-blockquote:border-l-primary prose-hr:border-border max-w-none"
           v-html="post.content"
         />
         <!-- eslint-enable vue/no-v-html -->
@@ -207,6 +207,37 @@ useSchemaOrg([
 </script>
 
 <style scoped>
+.post-content {
+  --tw-prose-body: color-mix(
+    in oklab,
+    var(--color-foreground) 82%,
+    transparent
+  );
+  --tw-prose-headings: var(--color-foreground);
+  --tw-prose-lead: var(--color-muted-foreground);
+  --tw-prose-links: var(--color-primary);
+  --tw-prose-bold: var(--color-foreground);
+  --tw-prose-counters: var(--color-muted-foreground);
+  --tw-prose-bullets: color-mix(
+    in oklab,
+    var(--color-foreground) 35%,
+    transparent
+  );
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-foreground);
+  --tw-prose-quote-borders: var(--color-primary);
+  --tw-prose-captions: var(--color-muted-foreground);
+  --tw-prose-kbd: var(--color-foreground);
+  --tw-prose-code: var(--color-foreground);
+  --tw-prose-pre-code: color-mix(
+    in oklab,
+    var(--color-foreground) 85%,
+    transparent
+  );
+  --tw-prose-pre-bg: var(--color-ink);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+}
 .post-content :deep([style]) {
   color: inherit !important;
   background-color: transparent !important;

@@ -41,7 +41,8 @@
       </div>
 
       <div v-motion-slide-visible-once-right :delay="250">
-        <HomeQuickCompose />
+        <!-- <HomeQuickCompose /> -->
+        <HomeHeroIllustration />
       </div>
     </div>
   </section>

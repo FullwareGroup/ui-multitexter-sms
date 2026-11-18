@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap');
 
 @import 'tailwindcss';
-@custom-variant dark (&:where(.dark, .dark *));
+/* The brand theme is a dark theme, so dark: styles apply inside it whatever the colour mode. */
+@custom-variant dark (&:where(.dark, .dark *, .theme-brand, .theme-brand *));
+@custom-variant brand (&:where(.theme-brand, .theme-brand *));
 
 @plugin 'tailwind-scrollbar' {
   nocompatible: true;
@@ -19,6 +21,9 @@
   --color-border: #e3e3e3;
   --color-dark-blue: #020618;
   --color-grey: #d9d9d9;
+  --color-charcoal: #1e1e1c;
+  --color-sand: #d8cbb3;
+  --color-ink: #151513;
 }
 
 @layer base {
@@ -44,6 +49,25 @@
     --color-foreground: #ffffff;
     --color-muted-foreground: rgba(255, 255, 255, 0.6);
     --color-border: rgba(227, 227, 227, 0.1);
+  }
+
+  /* Every page outside the dashboard: fixed charcoal and sand, whatever the colour mode. */
+  .theme-brand {
+    color-scheme: dark;
+    --color-background: #1e1e1c;
+    --color-surface: #262624;
+    --color-foreground: #d8cbb3;
+    --color-muted-foreground: rgb(216 203 179 / 0.64);
+    --color-border: rgb(216 203 179 / 0.12);
+    --color-grey: #d8cbb3;
+  }
+  html:has(.theme-brand) {
+    color-scheme: dark;
+    background-color: #1e1e1c;
+  }
+  .theme-brand ::selection {
+    background-color: #d8cbb3;
+    color: #1e1e1c;
   }
 }
 

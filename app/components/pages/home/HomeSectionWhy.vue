@@ -32,15 +32,15 @@
       <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
         <li
           v-motion-slide-visible-once-bottom
-          class="bg-dark-blue relative overflow-hidden rounded-xl border border-white/10 text-white sm:col-span-2 lg:col-span-4"
+          class="bg-sand text-charcoal relative overflow-hidden rounded-xl sm:col-span-2 lg:col-span-4"
         >
           <div
             aria-hidden="true"
-            class="pointer-events-none absolute -bottom-48 -left-32 size-112 rounded-full bg-teal-400/20 blur-3xl"
+            class="pointer-events-none absolute -top-40 -right-24 size-112 rounded-full bg-white/40 blur-3xl"
           />
           <div
             aria-hidden="true"
-            class="bg-primary/15 pointer-events-none absolute -top-40 right-1/4 size-96 rounded-full blur-3xl"
+            class="pointer-events-none absolute inset-0 bg-[radial-gradient(var(--color-charcoal)_1px,transparent_1px)] mask-[linear-gradient(to_right,black,transparent_70%)] bg-size-[20px_20px] opacity-10"
           />
 
           <div
@@ -48,7 +48,7 @@
           >
             <div>
               <p
-                class="text-primary text-xs font-semibold tracking-[0.25em] uppercase"
+                class="text-charcoal/60 text-xs font-semibold tracking-[0.25em] uppercase"
               >
                 Mobile App
               </p>
@@ -57,14 +57,16 @@
               >
                 Get the MultiTexter Mobile App
               </h3>
-              <p class="mt-3 max-w-md text-base leading-relaxed text-white/75">
+              <p
+                class="text-charcoal/70 mt-3 max-w-md text-base leading-relaxed"
+              >
                 Send, schedule and track your bulk SMS from your Android phone.
               </p>
               <a
                 :href="playStoreUrl"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-dark-blue focus-visible:ring-primary/50 mt-8 inline-flex h-12 items-center gap-3 rounded-xl bg-white px-5 text-sm font-semibold transition-colors ease-in outline-none hover:bg-white/85 focus-visible:ring-3"
+                class="bg-primary text-dark-blue hover:bg-primary/85 focus-visible:ring-charcoal/30 mt-8 inline-flex h-12 items-center gap-3 rounded-lg px-5 text-sm font-semibold transition-colors ease-in outline-none focus-visible:ring-3"
               >
                 <svg
                   viewBox="0 0 24 24"

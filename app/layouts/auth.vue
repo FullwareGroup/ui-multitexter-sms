@@ -1,18 +1,18 @@
 <template>
-  <div class="min-h-dvh sm:h-dvh">
+  <div class="theme-brand bg-background text-foreground min-h-dvh sm:h-dvh">
     <div
       class="grid h-full min-h-dvh grid-cols-1 grid-rows-[auto_1fr] md:grid-cols-2 md:grid-rows-none"
     >
       <aside
-        class="bg-dark-blue relative isolate flex items-center justify-center overflow-hidden py-8 text-white md:py-0"
+        class="bg-ink border-border relative isolate flex items-center justify-center overflow-hidden border-b py-8 md:border-r md:border-b-0 md:py-0"
       >
         <div
           aria-hidden="true"
-          class="via-dark-blue to-dark-blue pointer-events-none absolute inset-0 -z-10 bg-linear-to-br from-sky-950"
+          class="from-sand/6 pointer-events-none absolute inset-0 -z-10 bg-linear-to-br via-transparent to-transparent"
         />
         <div
           aria-hidden="true"
-          class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle,rgb(255_255_255/0.18)_1px,transparent_1.5px)] mask-[radial-gradient(ellipse_at_center,black_25%,transparent_80%)] bg-size-[22px_22px]"
+          class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle,rgb(216_203_179/0.16)_1px,transparent_1.5px)] mask-[radial-gradient(ellipse_at_center,black_25%,transparent_80%)] bg-size-[22px_22px]"
         />
         <div
           aria-hidden="true"
@@ -20,7 +20,7 @@
         />
         <div
           aria-hidden="true"
-          class="bg-primary/10 pointer-events-none absolute -right-40 -bottom-56 -z-10 size-128 rounded-full blur-3xl"
+          class="bg-sand/10 pointer-events-none absolute -right-40 -bottom-56 -z-10 size-128 rounded-full blur-3xl"
         />
         <div
           v-for="line in lines"
@@ -43,7 +43,7 @@
           </p>
 
           <p
-            class="mt-5 hidden leading-relaxed text-pretty text-white/60 md:block"
+            class="text-muted-foreground mt-5 hidden leading-relaxed text-pretty md:block"
           >
             Send your bulk sms message, with instant delivery reports on every
             send.

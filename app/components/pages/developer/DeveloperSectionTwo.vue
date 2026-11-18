@@ -81,26 +81,26 @@
               #[sample.value]
             >
               <div
-                class="bg-dark-blue overflow-hidden rounded-2xl border border-white/10 text-white"
+                class="bg-ink border-border overflow-hidden rounded-2xl border"
               >
                 <div
-                  class="flex h-11 items-center justify-between gap-3 border-b border-white/10 px-4"
+                  class="border-border flex h-11 items-center justify-between gap-3 border-b px-4"
                 >
                   <div class="flex items-center gap-3">
                     <span aria-hidden="true" class="flex gap-1.5">
                       <span
                         v-for="dot in 3"
                         :key="dot"
-                        class="size-2.5 rounded-full bg-white/15"
+                        class="bg-foreground/15 size-2.5 rounded-full"
                       />
                     </span>
-                    <span class="font-mono text-xs text-white/50">
+                    <span class="text-foreground/50 font-mono text-xs">
                       {{ sample.file }}
                     </span>
                   </div>
                   <button
                     type="button"
-                    class="focus-visible:ring-primary/40 flex h-7 cursor-pointer items-center gap-1.5 rounded-md px-2 text-xs font-medium text-white/60 transition-colors ease-in outline-none hover:bg-white/10 hover:text-white focus-visible:ring-2"
+                    class="text-muted-foreground hover:bg-foreground/10 hover:text-foreground focus-visible:ring-primary/40 flex h-7 cursor-pointer items-center gap-1.5 rounded-md px-2 text-xs font-medium transition-colors ease-in outline-none focus-visible:ring-2"
                     @click="copy(sample.code)"
                   >
                     <component :is="copied ? Check : Copy" class="size-3.5" />
@@ -118,11 +118,11 @@
                   >
                     <span
                       aria-hidden="true"
-                      class="w-12 shrink-0 pr-4 text-right text-white/25 tabular-nums select-none"
+                      class="text-foreground/25 w-12 shrink-0 pr-4 text-right tabular-nums select-none"
                     >
                       {{ index + 1 }}
                     </span>
-                    <span class="pr-6 whitespace-pre text-white/85">{{
+                    <span class="text-foreground/85 pr-6 whitespace-pre">{{
                       line
                     }}</span>
                   </div>
