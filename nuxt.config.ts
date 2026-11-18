@@ -17,7 +17,7 @@ export default defineNuxtConfig({
         {
           name: 'description',
           content:
-            "Buy and send bulk SMS on Nigeria and Africa's reliable text messaging provider, platform, portal and gateway. Best free and premium bulk SMS @ 1 unit per SMS.",
+            'Buy and send bulk SMS on Nigeria reliable text messaging provider, platform, portal and gateway. Best free and premium bulk SMS @ 1 unit per SMS.',
         },
         {
           name: 'keywords',
