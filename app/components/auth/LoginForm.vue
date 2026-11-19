@@ -54,7 +54,7 @@
       <p class="text-center text-sm">
         Trouble signing in?
         <a
-          href="https://wa.me/2348148734028"
+          href="https://wa.me/message/PJUJOJ53SPARE1"
           target="_blank"
           rel="noopener"
           class="text-primary text-xs font-semibold"

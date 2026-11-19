@@ -76,13 +76,13 @@
             info@multitexter.com
           </a>
           <a
-            href="https://wa.me/2348148734028"
+            href="https://wa.me/message/PJUJOJ53SPARE1"
             target="_blank"
             rel="noopener"
             class="mt-5 flex items-center gap-3 text-xs font-semibold text-emerald-400 hover:text-emerald-300"
           >
             <span class="ml-1 size-2 shrink-0 rounded-full bg-emerald-400" />
-            Chat on WhatsApp (08148734028)
+            Chat on WhatsApp
           </a>
         </div>
       </div>
