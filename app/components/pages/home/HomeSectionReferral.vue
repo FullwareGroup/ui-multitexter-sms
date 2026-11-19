@@ -3,11 +3,11 @@
     <div class="wrapper">
       <div
         v-motion-slide-visible-once-bottom
-        class="bg-dark-blue relative overflow-hidden rounded-xl border border-white/10 text-white"
+        class="bg-ink border-border relative overflow-hidden rounded-xl border"
       >
         <div
           aria-hidden="true"
-          class="pointer-events-none absolute -bottom-48 -left-40 size-112 rounded-full bg-teal-400/15 blur-3xl"
+          class="bg-sand/10 pointer-events-none absolute -bottom-48 -left-40 size-112 rounded-full blur-3xl"
         />
         <div
           aria-hidden="true"
@@ -33,7 +33,7 @@
             <p
               v-motion-fade-visible-once
               :delay="450"
-              class="mt-6 max-w-xl text-base leading-relaxed text-white/75"
+              class="text-foreground/75 mt-6 max-w-xl text-base leading-relaxed"
             >
               After signing up for bulk SMS, a unique referral link is generated
               for you. Go to Profile Summary after logging in to retrieve your
@@ -51,11 +51,11 @@
                 to="/signup"
                 class="bg-primary text-dark-blue hover:bg-primary/85 focus-visible:ring-primary/40 inline-flex h-12 items-center rounded-lg px-6 text-sm font-semibold transition-colors ease-in outline-none focus-visible:ring-3"
               >
-                Register now
+                Sign Up
               </NuxtLink>
               <NuxtLink
                 to="/login"
-                class="focus-visible:ring-primary/40 inline-flex h-12 items-center rounded-lg border border-white/20 px-6 text-sm font-semibold transition-colors ease-in outline-none hover:bg-white/10 focus-visible:ring-3"
+                class="border-foreground/20 hover:bg-foreground/10 focus-visible:ring-primary/40 inline-flex h-12 items-center rounded-lg border px-6 text-sm font-semibold transition-colors ease-in outline-none focus-visible:ring-3"
               >
                 Login
               </NuxtLink>
@@ -63,20 +63,20 @@
           </div>
 
           <div
-            class="flex flex-col justify-center border-t border-white/10 p-8 sm:p-12 lg:border-t-0 lg:border-l"
+            class="border-border flex flex-col justify-center border-t p-8 sm:p-12 lg:border-t-0 lg:border-l"
           >
             <p
-              class="text-xs font-medium tracking-[0.15em] text-white/50 uppercase"
+              class="text-muted-foreground text-xs font-medium tracking-[0.15em] uppercase"
             >
               Your link looks like this
             </p>
             <p
-              class="text-primary mt-4 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 font-mono text-sm break-all"
+              class="text-primary border-border bg-foreground/5 mt-4 rounded-2xl border px-5 py-4 font-mono text-sm break-all"
             >
               https://web.multitexter.com/signup?ref=refid
             </p>
 
-            <ol class="mt-6 space-y-3 text-sm text-white/80">
+            <ol class="text-foreground/80 mt-6 space-y-3 text-sm">
               <li
                 v-for="(step, index) in steps"
                 :key="step"

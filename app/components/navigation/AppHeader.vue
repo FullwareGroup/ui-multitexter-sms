@@ -1,28 +1,41 @@
 <template>
   <header class="sticky top-0 z-50">
     <nav class="backdrop-blur-lg backdrop-saturate-180">
-      <div
-        class="bg-primary/50 text-dark-blue flex min-h-8 items-center dark:text-white"
-      >
-        <div class="wrapper flex items-center gap-3 py-2">
-          <a
-            href="tel:+2348148734028"
-            class="flex items-center gap-2 text-xs font-medium"
-          >
-            <Phone :size="16" color="#5ebb46" class="shrink-0" />
-            Mon - Fri (8am-6pm) 08148734028 Calls/WhatsApp Only
-          </a>
+      <div class="bg-sand text-charcoal">
+        <div
+          class="wrapper flex h-9 items-center justify-between gap-4 text-xs"
+        >
+          <div class="flex min-w-0 items-center gap-3 sm:gap-4">
+            <a
+              href="tel:+2348148734028"
+              class="hover:text-charcoal/70 flex shrink-0 items-center gap-2 font-semibold transition-colors"
+            >
+              <Phone class="size-3.5" />
+              <span class="tabular-nums">0814 873 4028</span>
+              <span class="text-charcoal/60 hidden font-normal md:inline">
+                Calls &amp; WhatsApp only
+              </span>
+            </a>
+            <span
+              aria-hidden="true"
+              class="bg-charcoal/20 h-3.5 w-px shrink-0"
+            />
+            <p class="text-charcoal/70 flex min-w-0 items-center gap-2">
+              <Clock class="size-3.5 shrink-0" />
+              <span class="truncate">Mon – Fri, 8am – 6pm</span>
+            </p>
+          </div>
           <a
             href="mailto:support@multitexter.com"
-            class="flex items-center gap-2 text-xs"
+            class="hover:text-charcoal/70 hidden items-center gap-2 font-medium transition-colors sm:flex"
           >
-            <Mail :size="16" color="#5ebb46" />
+            <Mail class="size-3.5" />
             support@multitexter.com
           </a>
         </div>
       </div>
 
-      <div class="bg-background/80 border-border border-b">
+      <div class="bg-background/50 border-border border-b">
         <div class="wrapper flex h-15 items-center justify-between gap-2">
           <AppLogo />
 
@@ -31,7 +44,7 @@
               <NuxtLink
                 :to="menu.url"
                 :target="menu.external ? '_blank' : undefined"
-                class="text-muted-foreground text-sm font-medium transition-colors ease-in hover:text-black dark:hover:text-white"
+                class="text-muted-foreground hover:text-foreground text-sm font-medium transition-colors ease-in"
               >
                 {{ menu.title }}
               </NuxtLink>
@@ -39,8 +52,6 @@
           </ul>
 
           <div class="flex items-center gap-3">
-            <ThemeToggle />
-
             <div class="hidden items-center gap-2 md:flex">
               <template v-if="!isLoggedIn">
                 <NuxtLink
@@ -51,7 +62,7 @@
                 </NuxtLink>
                 <NuxtLink
                   to="/signup"
-                  class="bg-primary hover:bg-primary/85 flex h-9 items-center rounded-lg px-4 text-sm font-semibold text-black transition-all ease-in"
+                  class="bg-primary text-dark-blue hover:bg-primary/85 flex h-9 items-center rounded-lg px-4 text-sm font-semibold transition-all ease-in"
                 >
                   Sign Up
                 </NuxtLink>
@@ -60,7 +71,7 @@
               <NuxtLink
                 v-else
                 to="/dashboard"
-                class="bg-primary hover:bg-primary/60 flex min-h-9 items-center rounded px-6 text-white transition-all ease-in"
+                class="bg-primary text-dark-blue hover:bg-primary/85 flex h-9 items-center rounded-lg px-4 text-sm font-semibold transition-all ease-in"
               >
                 Go To Dashboard
               </NuxtLink>
@@ -111,14 +122,14 @@
             <template v-if="!isLoggedIn">
               <NuxtLink
                 to="/login"
-                class="border-border bg-surface hover:text-primary hover:bg-primary/5 flex h-11 items-center justify-center rounded border text-sm font-semibold transition-all ease-in"
+                class="border-border bg-surface hover:text-primary hover:bg-primary/5 flex h-11 items-center justify-center rounded-lg border text-sm font-semibold transition-all ease-in"
                 @click="isMobileNavToggled = false"
               >
                 Sign In
               </NuxtLink>
               <NuxtLink
                 to="/signup"
-                class="bg-primary hover:bg-primary/60 flex h-11 items-center justify-center rounded text-sm font-semibold text-white transition-all ease-in"
+                class="bg-primary text-dark-blue hover:bg-primary/85 flex h-11 items-center justify-center rounded-lg text-sm font-semibold transition-all ease-in"
                 @click="isMobileNavToggled = false"
               >
                 Sign Up
@@ -127,7 +138,7 @@
             <NuxtLink
               v-else
               to="/dashboard"
-              class="bg-primary hover:bg-primary/60 flex h-11 items-center justify-center rounded text-sm font-semibold text-white transition-all ease-in"
+              class="bg-primary text-dark-blue hover:bg-primary/85 flex h-11 items-center justify-center rounded-lg text-sm font-semibold transition-all ease-in"
               @click="isMobileNavToggled = false"
             >
               Go to Dashboard
@@ -140,7 +151,7 @@
 </template>
 
 <script setup lang="ts">
-import { Phone, Mail, Menu, X, ArrowUpRight } from '@lucide/vue'
+import { Phone, Mail, Menu, X, ArrowUpRight, Clock } from '@lucide/vue'
 
 interface Menu {
   id: string

@@ -38,13 +38,26 @@
           Reach thousands of people on any network in Nigeria with one click, at
           one unit per SMS, with instant delivery reports.
         </p>
+
+        <div v-motion-fade-visible-once :delay="450" class="mt-8">
+          <NuxtLink
+            to="/signup"
+            class="bg-primary text-dark-blue hover:bg-primary/85 focus-visible:ring-primary/40 inline-flex h-12 items-center gap-2 rounded-lg px-6 text-sm font-semibold transition-colors ease-in outline-none focus-visible:ring-3"
+          >
+            Start here
+            <ArrowRight class="size-4" />
+          </NuxtLink>
+        </div>
       </div>
 
       <div v-motion-slide-visible-once-right :delay="250">
-        <HomeQuickCompose />
+        <!-- <HomeQuickCompose /> -->
+        <HomeHeroIllustration />
       </div>
     </div>
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ArrowRight } from '@lucide/vue'
+</script>

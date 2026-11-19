@@ -40,12 +40,12 @@
       <div
         v-motion-slide-visible-once-bottom
         :delay="200"
-        class="bg-dark-blue relative aspect-4/3 overflow-hidden rounded-xl border border-white/10 shadow-2xl shadow-black/10"
+        class="bg-ink border-border relative aspect-4/3 overflow-hidden rounded-xl border shadow-2xl shadow-black/40"
       >
         <EarthCoverage class="absolute inset-0 size-full" />
         <ul
           aria-label="Supported networks"
-          class="text-dark-blue absolute inset-x-3 bottom-3 flex flex-wrap items-center gap-x-5 gap-y-1 rounded-2xl bg-white/85 px-4 py-3 text-sm font-semibold backdrop-blur-md sm:inset-x-4 sm:bottom-4 sm:gap-x-6"
+          class="bg-sand/90 text-charcoal absolute inset-x-3 bottom-3 flex flex-wrap items-center gap-x-5 gap-y-1 rounded-2xl px-4 py-3 text-sm font-semibold backdrop-blur-md sm:inset-x-4 sm:bottom-4 sm:gap-x-6"
         >
           <li v-for="network in networks" :key="network">{{ network }}</li>
         </ul>

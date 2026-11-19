@@ -25,7 +25,7 @@
             Preview
           </div>
           <div
-            class="bg-dark-blue relative mt-3 overflow-hidden rounded-3xl border border-white/10 p-5 text-white"
+            class="bg-ink border-border relative mt-3 overflow-hidden rounded-3xl border p-5"
           >
             <div
               aria-hidden="true"
@@ -41,11 +41,11 @@
                 <p class="truncate font-semibold tracking-wide">
                   {{ previewName }}
                 </p>
-                <p class="text-xs text-white/50">now</p>
+                <p class="text-muted-foreground text-xs">now</p>
               </div>
             </div>
             <p
-              class="relative mt-4 rounded-2xl rounded-tl-md bg-white/10 px-4 py-3 text-sm leading-relaxed text-white/85"
+              class="bg-foreground/10 text-foreground/85 relative mt-4 rounded-2xl rounded-tl-md px-4 py-3 text-sm leading-relaxed"
             >
               Hi there! Your order has been confirmed. Thank you for shopping
               with us.

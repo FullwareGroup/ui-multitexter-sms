@@ -105,7 +105,7 @@
         <NuxtLink
           v-else
           to="/forgot-password"
-          class="bg-primary hover:bg-primary/90 focus-visible:ring-primary/35 mt-6 flex h-10 w-full items-center justify-center rounded-md px-4 text-sm font-semibold text-white shadow-sm transition outline-none hover:shadow-md focus-visible:ring-3"
+          class="bg-primary text-dark-blue hover:bg-primary/90 focus-visible:ring-primary/35 mt-6 flex h-10 w-full items-center justify-center rounded-md px-4 text-sm font-semibold shadow-sm transition outline-none hover:shadow-md focus-visible:ring-3"
         >
           Request a new link
         </NuxtLink>

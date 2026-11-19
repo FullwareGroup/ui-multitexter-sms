@@ -61,7 +61,7 @@ const base = `relative shrink-0 items-center justify-center whitespace-nowrap bo
 
 const variants = {
   primary:
-    'border-transparent bg-primary text-white hover:bg-primary/90 focus-visible:ring-primary/35',
+    'border-transparent bg-primary text-white brand:text-dark-blue hover:bg-primary/90 focus-visible:ring-primary/35',
   outline:
     'border-primary bg-transparent text-primary hover:bg-primary/10 focus-visible:ring-primary/35',
   ghost:

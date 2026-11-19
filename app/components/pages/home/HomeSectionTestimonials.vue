@@ -29,80 +29,60 @@
         </p>
       </div>
 
-      <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
-        <li
-          v-motion-slide-visible-once-bottom
-          class="bg-dark-blue relative overflow-hidden rounded-xl border border-white/10 text-white sm:col-span-2 lg:col-span-4"
-        >
-          <div
-            aria-hidden="true"
-            class="bg-primary/15 pointer-events-none absolute -top-40 -right-24 size-96 rounded-full blur-3xl"
-          />
-          <div
-            aria-hidden="true"
-            class="pointer-events-none absolute -bottom-48 -left-32 size-112 rounded-full bg-teal-400/15 blur-3xl"
-          />
-
-          <figure class="relative flex h-full flex-col p-8 sm:p-10">
-            <Quote aria-hidden="true" class="text-primary size-10" />
-            <blockquote
-              class="mt-6 text-xl leading-relaxed font-medium text-pretty sm:text-2xl"
+      <div
+        v-motion-fade-visible-once
+        :delay="350"
+        class="marquee mt-12 overflow-hidden mask-[linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
+      >
+        <div class="marquee-track flex w-max">
+          <ul
+            v-for="copy in 2"
+            :key="copy"
+            :aria-hidden="copy === 2 || undefined"
+            :class="['flex shrink-0 gap-4 pr-4', copy === 2 && 'marquee-copy']"
+          >
+            <li
+              v-for="testimonial in testimonials"
+              :key="testimonial.name"
+              class="bg-surface border-border flex w-80 shrink-0 rounded-xl border sm:w-96"
             >
-              <p>&ldquo;{{ featured.quote }}&rdquo;</p>
-            </blockquote>
-            <figcaption class="mt-auto flex items-center gap-4 pt-10">
-              <span
-                class="text-primary flex size-12 shrink-0 items-center justify-center rounded-full bg-white/10 font-semibold"
-              >
-                {{ initials(featured.name) }}
-              </span>
-              <div>
-                <p class="font-semibold">{{ featured.name }}</p>
-                <p class="text-sm text-white/60">{{ featured.role }}</p>
+              <div class="flex flex-1 flex-col p-6 sm:p-8">
+                <div class="flex items-center justify-between gap-4">
+                  <div
+                    role="img"
+                    aria-label="Rated 5 out of 5"
+                    class="text-primary flex gap-1"
+                  >
+                    <Star
+                      v-for="star in 5"
+                      :key="star"
+                      aria-hidden="true"
+                      class="size-4 fill-current"
+                    />
+                  </div>
+                  <Quote aria-hidden="true" class="text-foreground/15 size-8" />
+                </div>
+                <blockquote class="mt-6 text-base leading-relaxed">
+                  <p>&ldquo;{{ testimonial.quote }}&rdquo;</p>
+                </blockquote>
+                <figcaption class="mt-auto flex items-center gap-3 pt-8">
+                  <span
+                    class="bg-primary/10 text-primary flex size-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold"
+                  >
+                    {{ initials(testimonial.name) }}
+                  </span>
+                  <div>
+                    <p class="text-sm font-semibold">{{ testimonial.name }}</p>
+                    <p class="text-muted-foreground text-sm">
+                      {{ testimonial.role }}
+                    </p>
+                  </div>
+                </figcaption>
               </div>
-            </figcaption>
-          </figure>
-        </li>
-
-        <li
-          v-for="(testimonial, index) in rest"
-          :key="testimonial.name"
-          v-motion-slide-visible-once-bottom
-          :delay="index === 0 ? 150 : (index - 1) * 100"
-          class="bg-surface border-border rounded-xl border lg:col-span-2"
-        >
-          <figure class="flex h-full flex-col p-8">
-            <div
-              role="img"
-              aria-label="Rated 5 out of 5"
-              class="text-primary flex gap-1"
-            >
-              <Star
-                v-for="star in 5"
-                :key="star"
-                aria-hidden="true"
-                class="size-4 fill-current"
-              />
-            </div>
-            <blockquote class="mt-6 text-base leading-relaxed">
-              <p>&ldquo;{{ testimonial.quote }}&rdquo;</p>
-            </blockquote>
-            <figcaption class="mt-auto flex items-center gap-3 pt-8">
-              <span
-                class="bg-primary/10 text-primary flex size-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold"
-              >
-                {{ initials(testimonial.name) }}
-              </span>
-              <div>
-                <p class="text-sm font-semibold">{{ testimonial.name }}</p>
-                <p class="text-muted-foreground text-sm">
-                  {{ testimonial.role }}
-                </p>
-              </div>
-            </figcaption>
-          </figure>
-        </li>
-      </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -149,8 +129,6 @@ const testimonials: Testimonial[] = [
   },
 ]
 
-const [featured, ...rest] = testimonials as [Testimonial, ...Testimonial[]]
-
 const initials = (name: string) =>
   name
     .split(' ')
@@ -158,3 +136,36 @@ const initials = (name: string) =>
     .join('')
     .slice(0, 2)
 </script>
+
+<style scoped>
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 70s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  .marquee-copy {
+    display: none;
+  }
+}
+</style>

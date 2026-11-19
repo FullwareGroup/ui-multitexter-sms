@@ -21,10 +21,10 @@
       <div
         v-else
         aria-hidden="true"
-        class="bg-dark-blue relative flex size-full items-center justify-center"
+        class="bg-ink relative flex size-full items-center justify-center"
       >
         <div
-          class="absolute inset-0 bg-[radial-gradient(var(--color-white)_1px,transparent_1px)] bg-size-[20px_20px] opacity-15"
+          class="absolute inset-0 bg-[radial-gradient(var(--color-sand)_1px,transparent_1px)] bg-size-[20px_20px] opacity-15"
         />
         <div
           :class="[
@@ -33,7 +33,7 @@
           ]"
         />
         <span
-          class="text-primary relative flex size-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm"
+          class="text-primary border-border bg-foreground/5 relative flex size-14 items-center justify-center rounded-2xl border backdrop-blur-sm"
         >
           <Newspaper class="size-6" />
         </span>
