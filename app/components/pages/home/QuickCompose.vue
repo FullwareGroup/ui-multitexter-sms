@@ -2,7 +2,7 @@
   <div
     class="bg-surface/20 border-border rounded-xl border p-5 shadow-xl shadow-black/5 sm:p-8"
   >
-    <h2 class="text-lg font-semibold">Quick compose</h2>
+    <h3 class="text-lg font-semibold">Quick compose</h3>
     <div class="mt-6 grid gap-x-4 gap-y-5 sm:grid-cols-2">
       <div>
         <UiInput
@@ -84,14 +84,14 @@
           to="/signup"
           class="bg-primary text-dark-blue hover:bg-primary/85 focus-visible:ring-primary/40 flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-sm font-semibold transition-colors ease-in outline-none focus-visible:ring-3 sm:flex-1"
         >
-          Register to send
+          Sign up to send
           <ArrowRight class="size-4" />
         </NuxtLink>
         <NuxtLink
           to="/login"
-          class="border-border hover:bg-primary/10 focus-visible:ring-primary/30 flex h-12 items-center justify-center rounded-lg border px-8 text-sm font-semibold transition-colors ease-in outline-none focus-visible:ring-3"
+          class="border-border hover:bg-primary/10 focus-visible:ring-primary/30 flex h-12 items-center justify-center rounded-lg border px-6 text-sm font-semibold transition-colors ease-in outline-none focus-visible:ring-3 sm:flex-1"
         >
-          Login
+          Log in to send
         </NuxtLink>
       </template>
     </div>
