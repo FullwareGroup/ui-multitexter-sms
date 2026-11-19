@@ -51,7 +51,7 @@
                 to="/signup"
                 class="bg-primary text-dark-blue hover:bg-primary/85 focus-visible:ring-primary/40 inline-flex h-12 items-center rounded-lg px-6 text-sm font-semibold transition-colors ease-in outline-none focus-visible:ring-3"
               >
-                Register now
+                Sign Up
               </NuxtLink>
               <NuxtLink
                 to="/login"
