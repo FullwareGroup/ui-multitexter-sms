@@ -383,7 +383,7 @@ const { value: volume } = useField<string>('volume')
 const { value: otherRequest } = useField<string>('otherRequest')
 const loading = ref(false)
 const errorMessage = ref('')
-const emailsToDeliverTo = ['kunle@lordni.com', 'tayo.ojo@fullware.group']
+const emailsToDeliverTo = ['eniola@fullware.group', 'tayo.ojo@fullware.group']
 
 const recaptchaWidgetId = ref<number | null>(null)
 const recaptchaToken = ref('')
