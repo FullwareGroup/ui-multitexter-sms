@@ -7,6 +7,7 @@
     <HomeSectionCoverage />
     <HomeSectionPayment />
     <HomeSectionOneTime />
+    <HomeSectionQuickCompose />
     <HomeSectionReferral />
   </div>
 </template>
