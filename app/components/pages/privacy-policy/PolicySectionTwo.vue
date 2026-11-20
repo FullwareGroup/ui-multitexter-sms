@@ -38,7 +38,7 @@
     </aside>
 
     <div class="divide-border max-w-3xl divide-y">
-      <section id="overview" class="scroll-mt-24 pb-12">
+      <section id="overview" class="scroll-mt-32 pb-12">
         <div class="flex items-baseline gap-4">
           <span
             v-motion-fade-visible-once
@@ -95,7 +95,7 @@
         </p>
       </section>
 
-      <section id="use-of-data" class="scroll-mt-24 py-12">
+      <section id="use-of-data" class="scroll-mt-32 py-12">
         <div class="flex items-baseline gap-4">
           <span
             v-motion-fade-visible-once
@@ -131,7 +131,7 @@
         </p>
       </section>
 
-      <section id="disclosure" class="scroll-mt-24 py-12">
+      <section id="disclosure" class="scroll-mt-32 py-12">
         <div class="flex items-baseline gap-4">
           <span
             v-motion-fade-visible-once
@@ -176,7 +176,7 @@
         </ol>
       </section>
 
-      <section id="changes" class="scroll-mt-24 py-12">
+      <section id="changes" class="scroll-mt-32 py-12">
         <div class="flex items-baseline gap-4">
           <span
             v-motion-fade-visible-once

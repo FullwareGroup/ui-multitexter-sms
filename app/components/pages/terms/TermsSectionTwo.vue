@@ -38,7 +38,7 @@
     </aside>
 
     <div class="divide-border max-w-3xl divide-y">
-      <section id="acceptance" class="scroll-mt-24 pb-12">
+      <section id="acceptance" class="scroll-mt-32 pb-12">
         <div class="flex items-baseline gap-4">
           <span
             v-motion-fade-visible-once
@@ -88,7 +88,7 @@
         </div>
       </section>
 
-      <section id="responsibilities" class="scroll-mt-24 py-12">
+      <section id="responsibilities" class="scroll-mt-32 py-12">
         <div class="flex items-baseline gap-4">
           <span
             v-motion-fade-visible-once
@@ -127,7 +127,7 @@
         </p>
       </section>
 
-      <section id="general-conditions" class="scroll-mt-24 py-12">
+      <section id="general-conditions" class="scroll-mt-32 py-12">
         <div class="flex items-baseline gap-4">
           <span
             v-motion-fade-visible-once
@@ -193,7 +193,7 @@
         </div>
       </section>
 
-      <section id="assignment" class="scroll-mt-24 py-12">
+      <section id="assignment" class="scroll-mt-32 py-12">
         <div class="flex items-baseline gap-4">
           <span
             v-motion-fade-visible-once
@@ -223,7 +223,7 @@
         </p>
       </section>
 
-      <section id="indemnification" class="scroll-mt-24 py-12">
+      <section id="indemnification" class="scroll-mt-32 py-12">
         <div class="flex items-baseline gap-4">
           <span
             v-motion-fade-visible-once
@@ -275,7 +275,7 @@
         </div>
       </section>
 
-      <section id="contact" class="scroll-mt-24 pt-12">
+      <section id="contact" class="scroll-mt-32 pt-12">
         <div
           v-motion-slide-visible-once-bottom
           class="bg-surface border-border relative overflow-hidden rounded-3xl border p-8 sm:p-10"

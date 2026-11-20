@@ -3,31 +3,40 @@
     <nav class="backdrop-blur-lg backdrop-saturate-180">
       <div class="bg-sand text-charcoal">
         <div
-          class="wrapper flex h-9 items-center justify-between gap-4 text-xs"
+          class="wrapper flex items-center justify-between gap-4 py-1.5 text-xs"
         >
-          <div class="flex min-w-0 items-center gap-3 sm:gap-4">
+          <div
+            class="grid min-w-0 grid-cols-[auto_auto_minmax(0,1fr)] items-center gap-x-3 gap-y-1 sm:gap-x-4"
+          >
             <a
               href="tel:+2348148734028"
-              class="hover:text-charcoal/70 flex shrink-0 items-center gap-2 font-semibold transition-colors"
+              class="hover:text-charcoal flex items-center gap-2 font-semibold transition-colors"
             >
               <Phone class="size-3.5" />
-              <span class="tabular-nums">0814 873 4028</span>
-              <span class="text-charcoal/60 hidden font-normal md:inline">
+              <span class="font-bold tabular-nums">0814 873 4028</span>
+              <span class="hidden font-normal md:inline">
                 Calls &amp; WhatsApp only
               </span>
             </a>
-            <span
-              aria-hidden="true"
-              class="bg-charcoal/20 h-3.5 w-px shrink-0"
-            />
-            <p class="text-charcoal/70 flex min-w-0 items-center gap-2">
+            <span aria-hidden="true" class="bg-charcoal/20 h-3.5 w-px" />
+            <p class="text-charcoal flex min-w-0 items-center gap-2">
               <Clock class="size-3.5 shrink-0" />
               <span class="truncate">Mon – Fri, 8am – 6pm</span>
+            </p>
+
+            <p class="flex items-center gap-2 font-bold">
+              <MessagesSquare class="size-3.5" />
+              Email &amp; Web chat
+            </p>
+            <span aria-hidden="true" class="bg-charcoal/20 h-3.5 w-px" />
+            <p class="text-charcoal flex min-w-0 items-center gap-2">
+              <Clock class="size-3.5 shrink-0" />
+              <span class="truncate">Weekends, 9am – 9pm</span>
             </p>
           </div>
           <a
             href="mailto:support@multitexter.com"
-            class="hover:text-charcoal/70 hidden items-center gap-2 font-medium transition-colors sm:flex"
+            class="hover:text-charcoal hidden items-center gap-2 font-semibold transition-colors sm:flex"
           >
             <Mail class="size-3.5" />
             support@multitexter.com
@@ -151,7 +160,15 @@
 </template>
 
 <script setup lang="ts">
-import { Phone, Mail, Menu, X, ArrowUpRight, Clock } from '@lucide/vue'
+import {
+  Phone,
+  Mail,
+  Menu,
+  X,
+  ArrowUpRight,
+  Clock,
+  MessagesSquare,
+} from '@lucide/vue'
 
 interface Menu {
   id: string
