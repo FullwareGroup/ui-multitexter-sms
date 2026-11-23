@@ -195,7 +195,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      BASE_URL: import.meta.env.APP_API_URL as string,
+      BASE_URL:
+        import.meta.env.API_BASE_URL || 'https://app.multitexter.com/v2/app/',
     },
   },
   vite: {
@@ -254,5 +255,9 @@ export default defineNuxtConfig({
         },
       )
     },
+  },
+  devServer: {
+    port: import.meta.env.PORT || 3003,
+    host: import.meta.env.HOST || '0.0.0.0',
   },
 })
