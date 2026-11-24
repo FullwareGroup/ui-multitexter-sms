@@ -41,6 +41,7 @@
     "@vueuse/core": "^15.0.0",
     "@vueuse/nuxt": "^15.0.0",
     "eslint": "^10.14.0",
+    "postcss": "^8.5.33",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwind-scrollbar": "^4.0.2",
     "typescript": "^6.0.3"
