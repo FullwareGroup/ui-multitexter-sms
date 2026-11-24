@@ -54,7 +54,7 @@
             maxlength="11"
             placeholder="MyBrand"
             :options="senderOptions"
-            hint="Up to 11 characters. Don't use a bank's name."
+            hint="Fill Only Unique Name 5 to 11 characters."
             :error="errors.senderName"
           />
         </div>
