@@ -51,7 +51,7 @@
     --color-border: rgba(227, 227, 227, 0.1);
   }
 
-  /* Every page outside the dashboard: fixed charcoal and sand, whatever the colour mode. */
+  /* Every page outside the dashboard: fixed charcoal and sand, whatever the color mode. */
   .theme-brand {
     color-scheme: dark;
     --color-background: #1e1e1c;
