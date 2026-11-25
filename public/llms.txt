@@ -1,0 +1,67 @@
+# Multitexter
+
+> Multitexter is a Nigerian bulk SMS platform and HTTP API. Businesses use it to send bulk, promotional, transactional and OTP text messages to MTN, Airtel, Glo and T2 (formerly 9mobile) numbers in Nigeria, and to mobile networks worldwide, at one unit per SMS with instant delivery reports.
+
+Key facts:
+
+- Pricing is pay-as-you-go. Customers buy SMS units, and the price per unit drops as the volume rises. There is no maximum purchase. Current rates are on the pricing page, which loads them live, so do not quote fixed prices.
+- Units can be bought online by card (MasterCard, Visa, Verve, eTranzact, Interswitch) and are credited instantly, or by bank deposit or transfer to the account shown in the customer dashboard.
+- Messages can be sent from the web dashboard, the Android app or the HTTP API. The dashboard supports scheduled SMS, personalised SMS, CSV contact upload, phonebooks, birthday messages, drafts, delivery reports and sharing units with other accounts. There is no limit on recipients beyond the units available.
+- Messages go out under a sender name (sender ID), which can be registered so recipients know who the message is from. Some sender names and message words can stop delivery; see the Caution Words page before sending.
+- Banks and financial institutions get dedicated routes, special pricing and guided sender name onboarding for OTPs and alerts, including delivery to DND (Do-Not-Disturb) numbers.
+- Every account has a referral link. When a referred user recharges, the referrer receives extra units, which can be transferred to other accounts.
+
+## Product
+
+- [Home](https://multitexter.com/): Overview of the bulk SMS service, payment options, OTP and bank traffic, and the referral programme.
+- [Pricing](https://multitexter.com/pricing): Volume-based price per unit, with a calculator for estimating campaign cost.
+- [SMS Coverage](https://multitexter.com/sms-coverage): Countries and mobile networks Multitexter can deliver to.
+- [Network Status](https://multitexter.com/network-status): Latest delivery updates for MTN, Airtel and other Nigerian networks.
+- [Caution Words](https://multitexter.com/caution-words): Sender names and message content that can block delivery.
+- [Register Sender ID](https://multitexter.com/register-name): Form to request registration of a sender name.
+- [About](https://multitexter.com/about): Company background, telco routes, DND channels and the developer API.
+
+## Developers
+
+- [Developer page](https://multitexter.com/developers): API overview, request parameters and sample code in JavaScript, PHP, Java and C#.
+- [HTTP SMS API 2.0 documentation (PDF)](https://multitexter.com/MultiTexter_HTTP_SMS_API%202.0.pdf): Full API reference.
+- [Postman documentation](https://documenter.getpostman.com/view/2209864/TzzGFY4f): Interactive API reference.
+
+To send an SMS, POST JSON to `https://app.multitexter.com/v2/app/sms` with:
+
+- `email`: the account's registered email
+- `password`: the account password
+- `message`: the message text
+- `sender_name`: the sender name recipients see
+- `recipients`: comma-separated numbers in international format without "+", e.g. `2348028828288,234900002000`
+- `forcednd`: `1` to deliver to DND numbers, otherwise `0`
+
+Integration help: developer@multitexter.com
+
+## Sales and support
+
+- [Contact Us](https://multitexter.com/contact): Contact form plus sales and technical support emails.
+- [Contact Sales](https://multitexter.com/contact-sales): Form for custom volume rates and business messaging needs.
+- [Integration Request](https://multitexter.com/requests): Request help building SMS into a website, app or internal tool.
+
+Sales and general enquiries: info@multitexter.com
+Technical support: support@multitexter.com
+Phone: +234 814 873 4028
+WhatsApp: https://wa.me/message/PJUJOJ53SPARE1
+Address: 131 Obafemi Awolowo Way, Ikeja, Lagos, Nigeria
+
+## Blog
+
+- [Blog](https://multitexter.com/blog): How-tos, ideas and updates on using bulk SMS for business. Individual posts live at `/blog/<slug>` and are listed in the sitemap.
+
+## Get started
+
+- [Sign up](https://multitexter.com/signup): Create an account.
+- [Log in](https://multitexter.com/login): Access the dashboard to send SMS, buy units and view reports.
+
+## Optional
+
+- [Android app](https://play.google.com/store/apps/details?id=com.multitexter.multitexterapp): Send, schedule and track bulk SMS from an Android phone.
+- [Terms of Service](https://multitexter.com/terms): Rules for using Multitexter and its services.
+- [Privacy Policy](https://multitexter.com/privacy-policy): How Multitexter collects, uses and shares information.
+- [Sitemap](https://multitexter.com/sitemap.xml): Every public URL, including blog posts.
