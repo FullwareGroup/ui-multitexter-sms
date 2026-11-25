@@ -25,7 +25,7 @@
           class="text-muted-foreground mt-5 text-base leading-relaxed"
         >
           Choose the fastest channel for your enquiry or visit our headquarters
-          located at the commercial tech corridor in Sabo, Yaba.
+          at 131 Obafemi Awolowo Way, Ikeja, Lagos.
         </p>
 
         <ul class="mt-10 flex flex-col gap-4">
