@@ -182,8 +182,8 @@ export default defineNuxtConfig({
       email: 'info@multitexter.com',
       telephone: '+2348148734028',
       address: {
-        streetAddress: '6th Floor, 294 Herbert Macaulay Way, Sabo',
-        addressLocality: 'Yaba',
+        streetAddress: '131 Obafemi Awolowo way, Ikeja, Lagos, Nigeria',
+        addressLocality: 'Ikeja',
         addressRegion: 'Lagos',
         addressCountry: 'NG',
       },
